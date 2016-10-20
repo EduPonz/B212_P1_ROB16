@@ -1,0 +1,8 @@
+prefix=/home/eduponz/B212_P1_ROB16/devel/.private/b212_p1_rob16_pkg
+
+Name: b212_p1_rob16_pkg
+Description: Description of b212_p1_rob16_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/eduponz/B212_P1_ROB16/devel/.private/b212_p1_rob16_pkg/lib 
+Requires: 

@@ -1,0 +1,6 @@
+devel_space: /home/eduponz/B212_P1_ROB16/devel
+install: false
+install_space: /home/eduponz/B212_P1_ROB16/install
+profile: default
+source_space: /home/eduponz/B212_P1_ROB16/src
+workspace: /home/eduponz/B212_P1_ROB16
