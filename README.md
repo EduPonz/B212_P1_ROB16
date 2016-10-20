@@ -2,3 +2,6 @@
 
 
 hey im making a change!!! look at me Im MR meesiks
+
+
+fuck you EDU
