@@ -6,19 +6,13 @@
 #include <iostream>
 #include <string.h>
 #include <string>
-
 #include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
 #include <sstream>
 
 using namespace std;
-
-void ctrlcstopper(int sig) {
-      ros::shutdown();
-}
 
 class Interface {
   private:
@@ -196,7 +190,7 @@ class Interface {
 };
 
 int main(int argc, char **argv) {
-  // PUBLISHING CODE
+
   ros::init(argc, argv, "interface");
   ros::NodeHandle myNodeHandle;
   Interface myInterface (myNodeHandle);

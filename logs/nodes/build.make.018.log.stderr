@@ -1,25 +1,3 @@
-[  0%] Built target _nodes_generate_messages_check_deps_PointStamped
-[  0%] Built target _nodes_generate_messages_check_deps_Point
-[  0%] Built target geometry_msgs_generate_messages_cpp
-[  0%] Built target std_msgs_generate_messages_cpp
-[  0%] Built target std_msgs_generate_messages_eus
-[ 11%] Built target move_to_point
-[ 11%] Built target geometry_msgs_generate_messages_eus
-[ 11%] Built target std_msgs_generate_messages_py
-[ 11%] Built target geometry_msgs_generate_messages_py
-[ 11%] Built target std_msgs_generate_messages_lisp
-[ 11%] Built target geometry_msgs_generate_messages_lisp
-[ 11%] Built target geometry_msgs_generate_messages_nodejs
-[ 22%] Built target nodes_generate_messages_cpp
-[ 22%] Built target std_msgs_generate_messages_nodejs
-[ 38%] Built target nodes_generate_messages_eus
-[ 55%] Built target nodes_generate_messages_py
-[ 66%] Built target nodes_generate_messages_lisp
-[35m[1mScanning dependencies of target interface[0m
-[ 77%] Built target nodes_generate_messages_nodejs
-[ 83%] [32mBuilding CXX object CMakeFiles/interface.dir/src/interface.cpp.o[0m
-[ 94%] Built target lognode
-[ 94%] Built target nodes_generate_messages
 [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:26:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
      float inputx = -4.43;
 [01;32m[K                     ^[m[K
@@ -44,5 +22,3 @@
 [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:36:27:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
      string robot_choice = "";
 [01;32m[K                           ^[m[K
-[100%] [32m[1mLinking CXX executable /home/eduponz/B212_P1_ROB16/devel/.private/nodes/lib/nodes/interface[0m
-[100%] Built target interface
