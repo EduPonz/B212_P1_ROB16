@@ -1,0 +1,57 @@
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:32:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputx = -4.43;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:33:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputy = -1.1;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:35:23:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingx = 0.621;
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:36:24:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingy = -1.86;
+[01;32m[K                        ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:38:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aislex = -0.889;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:39:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aisley = -1.2;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:41:19:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string task = "";
+[01;32m[K                   ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:42:27:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string robot_choice = "";
+[01;32m[K                           ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In constructor ‘[01m[KInterface::Interface()[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:100:7:[m[K [01;31m[Kerror: [m[K‘[01m[KNodeHandle[m[K’ was not declared in this scope
+       NodeHandle n;
+[01;32m[K       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:100:7:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/opt/ros/kinetic/include/ros/ros.h:45:0[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/opt/ros/kinetic/include/ros/node_handle.h:86:21:[m[K [01;36m[Knote: [m[K  ‘[01m[Kros::NodeHandle[m[K’
+   class ROSCPP_DECL NodeHandle
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:102:34:[m[K [01;31m[Kerror: [m[K‘[01m[Kn[m[K’ was not declared in this scope
+       ros::Publisher coord_pub = n.advertise<geometry_msgs::Point>("coordinates", 1000);
+[01;32m[K                                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:102:66:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+       ros::Publisher coord_pub = n.advertise<geometry_msgs::Point>("coordinates", 1000);
+[01;32m[K                                                                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:103:61:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+       ros::Publisher task_pub = n.advertise<std_msgs::String>("task", 1000);
+[01;32m[K                                                             ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:198:67:[m[K [01;31m[Kerror: [m[K‘[01m[Kinit[m[K’ was not declared in this scope
+   init(argc, argv, "interface", ros::init_options::NoSigintHandler);
+[01;32m[K                                                                   ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:198:67:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/opt/ros/kinetic/include/ros/node_handle.h:46:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:45[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/opt/ros/kinetic/include/ros/init.h:103:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kros::init[m[K’
+ ROSCPP_DECL void init(const VP_string& remapping_args, const std::string& name, uint32_t options = 0);
+[01;32m[K                  ^[m[K
+make[2]: *** [CMakeFiles/interface.dir/src/interface.cpp.o] Error 1
+make[1]: *** [CMakeFiles/interface.dir/all] Error 2
+make: *** [all] Error 2

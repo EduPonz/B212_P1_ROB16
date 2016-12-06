@@ -1,0 +1,39 @@
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:27:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputx = -4.43;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:28:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputy = -1.1;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:30:23:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingx = 0.621;
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:31:24:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingy = -1.86;
+[01;32m[K                        ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:33:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aislex = -0.889;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:34:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aisley = -1.2;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:36:19:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string task = "";
+[01;32m[K                   ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:37:27:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string robot_choice = "";
+[01;32m[K                           ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In member function ‘[01m[Kvoid Interface::publishTask(std::__cxx11::string)[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:83:7:[m[K [01;31m[Kerror: [m[K‘[01m[Ktask_pub[m[K’ was not declared in this scope
+       task_pub.publish(task_msg);
+[01;32m[K       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In constructor ‘[01m[KInterface::Interface()[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:103:34:[m[K [01;31m[Kerror: [m[Kinvalid use of non-static member function
+       signal(SIGINT, ctrlcstopper);
+[01;32m[K                                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:158:87:[m[K [01;31m[Kerror: [m[Kinvalid use of non-static member function
+               ros::Subscriber click_sub = n.subscribe("clicked_point", 100, rviz_click);                   
+[01;32m[K                                                                                       ^[m[K
+make[2]: *** [CMakeFiles/interface.dir/src/interface.cpp.o] Error 1
+make[1]: *** [CMakeFiles/interface.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+make: *** [all] Error 2

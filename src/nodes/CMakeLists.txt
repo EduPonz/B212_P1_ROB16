@@ -41,10 +41,6 @@ catkin_package()
 ## Build talker and lognode
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(talker src/talker.cpp)
-target_link_libraries(talker ${catkin_LIBRARIES})
-add_dependencies(talker nodes_generate_messages_cpp)
-
 add_executable(lognode src/lognode.cpp)
 target_link_libraries(lognode ${catkin_LIBRARIES})
 add_dependencies(lognode nodes_generate_messages_cpp)

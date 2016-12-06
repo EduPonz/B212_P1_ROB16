@@ -1,0 +1,8 @@
+prefix=/home/eduponz/B212_P1_ROB16/install
+
+Name: nodes
+Description: Description of nodes
+Version: 0.0.0
+Cflags: -I/home/eduponz/B212_P1_ROB16/install/include
+Libs: -L/home/eduponz/B212_P1_ROB16/install/lib 
+Requires: 

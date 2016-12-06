@@ -1,0 +1,48 @@
+[  0%] Built target _nodes_generate_messages_check_deps_Point
+[  0%] Built target _nodes_generate_messages_check_deps_PointStamped
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target geometry_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_py
+[ 11%] Built target move_to_point
+[ 11%] Built target geometry_msgs_generate_messages_py
+[ 11%] Built target std_msgs_generate_messages_lisp
+[ 11%] Built target geometry_msgs_generate_messages_lisp
+[ 11%] Built target geometry_msgs_generate_messages_nodejs
+[ 11%] Built target std_msgs_generate_messages_nodejs
+[ 22%] Built target nodes_generate_messages_cpp
+[ 38%] Built target nodes_generate_messages_eus
+[ 55%] Built target nodes_generate_messages_py
+[ 66%] Built target nodes_generate_messages_lisp
+[35m[1mScanning dependencies of target interface[0m
+[ 77%] Built target nodes_generate_messages_nodejs
+[ 83%] [32mBuilding CXX object CMakeFiles/interface.dir/src/interface.cpp.o[0m
+[ 94%] Built target lognode
+[ 94%] Built target nodes_generate_messages
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:32:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputx = -4.43;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:33:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputy = -1.1;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:35:23:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingx = 0.621;
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:36:24:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingy = -1.86;
+[01;32m[K                        ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:38:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aislex = -0.889;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:39:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aisley = -1.2;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:41:19:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string task = "";
+[01;32m[K                   ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:42:27:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string robot_choice = "";
+[01;32m[K                           ^[m[K
+[100%] [32m[1mLinking CXX executable /home/eduponz/B212_P1_ROB16/devel/.private/nodes/lib/nodes/interface[0m
+[100%] Built target interface

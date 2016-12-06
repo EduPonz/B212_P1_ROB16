@@ -1,0 +1,56 @@
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:26:83:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+   ros::Publisher coord_pub = n.advertise<geometry_msgs::Point>("coordinates", 1000);
+[01;32m[K                                                                                   ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:27:71:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+   ros::Publisher task_pub = n.advertise<std_msgs::String>("task", 1000);
+[01;32m[K                                                                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:28:23:[m[K [01;31m[Kerror: [m[Kexpected identifier before numeric constant
+   ros::Rate loop_rate(10); //the hz it will use to push the data through the topic
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:28:23:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K...[m[K’ before numeric constant
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:36:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputx = -4.43;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:37:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputy = -1.1;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:39:23:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingx = 0.621;
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:40:24:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingy = -1.86;
+[01;32m[K                        ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:42:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aislex = -0.889;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:43:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aisley = -1.2;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:45:19:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string task = "";
+[01;32m[K                   ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:46:27:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     string robot_choice = "";
+[01;32m[K                           ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:26:30:[m[K [01;31m[Kerror: [m[K‘[01m[Kn[m[K’ was not declared in this scope
+   ros::Publisher coord_pub = n.advertise<geometry_msgs::Point>("coordinates", 1000);
+[01;32m[K                              ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:26:62:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+   ros::Publisher coord_pub = n.advertise<geometry_msgs::Point>("coordinates", 1000);
+[01;32m[K                                                              ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:27:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kn[m[K’ was not declared in this scope
+   ros::Publisher task_pub = n.advertise<std_msgs::String>("task", 1000);
+[01;32m[K                             ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:27:57:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+   ros::Publisher task_pub = n.advertise<std_msgs::String>("task", 1000);
+[01;32m[K                                                         ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In constructor ‘[01m[KInterface::Interface()[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:158:87:[m[K [01;31m[Kerror: [m[Kinvalid use of non-static member function
+               ros::Subscriber click_sub = n.subscribe("clicked_point", 100, rviz_click);                   
+[01;32m[K                                                                                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:180:11:[m[K [01;31m[Kerror: [m[K‘[01m[K((Interface*)this)->Interface::loop_rate[m[K’ does not have class type
+           loop_rate.sleep(); //setting ros rate to sleep 
+[01;32m[K           ^[m[K
+make[2]: *** [CMakeFiles/interface.dir/src/interface.cpp.o] Error 1
+make[1]: *** [CMakeFiles/interface.dir/all] Error 2
+make: *** [all] Error 2

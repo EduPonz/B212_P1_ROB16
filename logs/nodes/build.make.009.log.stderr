@@ -1,0 +1,177 @@
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:32:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputx = -4.43;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:33:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float inputy = -1.1;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:35:23:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingx = 0.621;
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:36:24:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float shippingy = -1.86;
+[01;32m[K                        ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:38:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aislex = -0.889;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:39:21:[m[K [01;35m[Kwarning: [m[Knon-static data member initializers only available with -std=c++11 or -std=gnu++11
+     float aisley = -1.2;
+[01;32m[K                     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:41:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ does not name a type
+     string task = "";
+[01;32m[K     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:42:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ does not name a type
+     string robot_choice = "";
+[01;32m[K     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:45:22:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ has not been declared
+     void chooseRobot(string& robot_choice) {
+[01;32m[K                      ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:79:23:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ has not been declared
+     void publishTask (string task, ros::Publisher task_pub) {
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In member function ‘[01m[Kvoid Interface::chooseRobot(int&)[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:49:7:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ was not declared in this scope
+       string robots_available[num_of_bots][2] = {
+[01;32m[K       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:49:7:[m[K [01;36m[Knote: [m[Ksuggested alternatives:
+In file included from [01m[K/usr/include/c++/5/string:39:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/platform.h:55[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/bits/stringfwd.h:74:33:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::__cxx11::string[m[K’
+   typedef basic_string<char>    string;   
+[01;32m[K                                 ^[m[K
+[01m[K/usr/include/c++/5/bits/stringfwd.h:74:33:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::__cxx11::string[m[K’
+In file included from [01m[K/usr/include/boost/lexical_cast/detail/converter_lexical.hpp:51:0[m[K,
+                 from [01m[K/usr/include/boost/lexical_cast/try_lexical_convert.hpp:34[m[K,
+                 from [01m[K/usr/include/boost/lexical_cast.hpp:32[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/transport_hints.h:34[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/subscribe_options.h:33[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/node_handle.h:41[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:45[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/boost/container/container_fwd.hpp:179:1:[m[K [01;36m[Knote: [m[K  ‘[01m[Kboost::container::string[m[K’
+ string;
+[01;32m[K ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:57:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kcout[m[K’ was not declared in this scope
+         cout << "Which robot do you want to do the task with? List of current robots: \n";
+[01;32m[K         ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:57:9:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/opt/ros/kinetic/include/ros/time.h:54:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/iostream:61:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::cout[m[K’
+   extern ostream cout;  /// Linked to standard output
+[01;32m[K                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:59:26:[m[K [01;31m[Kerror: [m[K‘[01m[Krobots_available[m[K’ was not declared in this scope
+           cout << "'" << robots_available[i][0] << "' \n";
+[01;32m[K                          ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:62:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kcin[m[K’ was not declared in this scope
+         cin >> robot_choice;
+[01;32m[K         ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:62:9:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/opt/ros/kinetic/include/ros/time.h:54:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/iostream:60:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::cin[m[K’
+   extern istream cin;  /// Linked to standard input
+[01;32m[K                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:65:15:[m[K [01;31m[Kerror: [m[K‘[01m[Krobots_available[m[K’ was not declared in this scope
+           if (robots_available[i][0] == robot_choice) {
+[01;32m[K               ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:67:91:[m[K [01;31m[Kerror: [m[K‘[01m[Kendl[m[K’ was not declared in this scope
+               cout << "Sorry, '" << robot_choice << "' is not available at this time." << endl;
+[01;32m[K                                                                                           ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:67:91:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/usr/include/c++/5/iostream:39:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/time.h:54[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/ostream:590:5:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::endl[m[K’
+     endl(basic_ostream<_CharT, _Traits>& __os)
+[01;32m[K     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:70:70:[m[K [01;31m[Kerror: [m[K‘[01m[Kendl[m[K’ was not declared in this scope
+               cout << "You have chosen '" << robot_choice << "'." << endl;
+[01;32m[K                                                                      ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:70:70:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/usr/include/c++/5/iostream:39:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/time.h:54[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/ostream:590:5:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::endl[m[K’
+     endl(basic_ostream<_CharT, _Traits>& __os)
+[01;32m[K     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:[m[K In constructor ‘[01m[KInterface::Interface()[m[K’:
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:107:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kcout[m[K’ was not declared in this scope
+         cout << "Which task: 'checklist', 'move' or 'quit'?" << endl;
+[01;32m[K         ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:107:9:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/opt/ros/kinetic/include/ros/time.h:54:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/iostream:61:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::cout[m[K’
+   extern ostream cout;  /// Linked to standard output
+[01;32m[K                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:107:65:[m[K [01;31m[Kerror: [m[K‘[01m[Kendl[m[K’ was not declared in this scope
+         cout << "Which task: 'checklist', 'move' or 'quit'?" << endl;
+[01;32m[K                                                                 ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:107:65:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/usr/include/c++/5/iostream:39:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/time.h:54[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/ostream:590:5:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::endl[m[K’
+     endl(basic_ostream<_CharT, _Traits>& __os)
+[01;32m[K     ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:108:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kcin[m[K’ was not declared in this scope
+         cin >> task;
+[01;32m[K         ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:108:9:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/opt/ros/kinetic/include/ros/time.h:54:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/iostream:60:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::cin[m[K’
+   extern istream cin;  /// Linked to standard input
+[01;32m[K                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:108:16:[m[K [01;31m[Kerror: [m[K‘[01m[Ktask[m[K’ was not declared in this scope
+         cin >> task;
+[01;32m[K                ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:112:23:[m[K [01;31m[Kerror: [m[K‘[01m[Krobot_choice[m[K’ was not declared in this scope
+           chooseRobot(robot_choice);
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:118:23:[m[K [01;31m[Kerror: [m[K‘[01m[Krobot_choice[m[K’ was not declared in this scope
+           chooseRobot(robot_choice);
+[01;32m[K                       ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:127:11:[m[K [01;31m[Kerror: [m[K‘[01m[Kstring[m[K’ was not declared in this scope
+           string choice;
+[01;32m[K           ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:127:11:[m[K [01;36m[Knote: [m[Ksuggested alternatives:
+In file included from [01m[K/usr/include/c++/5/string:39:0[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/platform.h:55[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/c++/5/bits/stringfwd.h:74:33:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::__cxx11::string[m[K’
+   typedef basic_string<char>    string;   
+[01;32m[K                                 ^[m[K
+[01m[K/usr/include/c++/5/bits/stringfwd.h:74:33:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd::__cxx11::string[m[K’
+In file included from [01m[K/usr/include/boost/lexical_cast/detail/converter_lexical.hpp:51:0[m[K,
+                 from [01m[K/usr/include/boost/lexical_cast/try_lexical_convert.hpp:34[m[K,
+                 from [01m[K/usr/include/boost/lexical_cast.hpp:32[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/transport_hints.h:34[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/subscribe_options.h:33[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/node_handle.h:41[m[K,
+                 from [01m[K/opt/ros/kinetic/include/ros/ros.h:45[m[K,
+                 from [01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:1[m[K:
+[01m[K/usr/include/boost/container/container_fwd.hpp:179:1:[m[K [01;36m[Knote: [m[K  ‘[01m[Kboost::container::string[m[K’
+ string;
+[01;32m[K ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:128:18:[m[K [01;31m[Kerror: [m[K‘[01m[Kchoice[m[K’ was not declared in this scope
+           cin >> choice;        
+[01;32m[K                  ^[m[K
+[01m[K/home/eduponz/B212_P1_ROB16/src/nodes/src/interface.cpp:190:14:[m[K [01;31m[Kerror: [m[K‘[01m[Ktask[m[K’ was not declared in this scope
+       }while(task != "quit");
+[01;32m[K              ^[m[K
+make[2]: *** [CMakeFiles/interface.dir/src/interface.cpp.o] Error 1
+make[1]: *** [CMakeFiles/interface.dir/all] Error 2
+make: *** [all] Error 2
