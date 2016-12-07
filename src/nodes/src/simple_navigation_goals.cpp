@@ -1,50 +1,115 @@
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include "sound_play/sound_play.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-bool task_arrival = false;
+std::string path_to_sounds;
 string task_temp;
 
-void task_func(const std_msgs::String::ConstPtr& task_msg) {
+void task_func(const std_msgs::String::ConstPtr& task_msg)
+{
   task_temp = task_msg->data;
+
   ROS_INFO("The 'checklist' operation has been received!");
 }
 
-int main(int argc, char** argv) {
-  ros::init(argc, argv, "simple_navigation_goals");
-  ros::Subscriber task_sub = n.subscribe("task", 100, task_func);
+void step1()
+{
 
-  if(task_temp != "")
+  MoveBaseClient ac("move_base", true);
+
+  while(!ac.waitForServer(ros::Duration(5.0)))
   {
-    // Tell the action client that we want to spin a thread by default
-    MoveBaseClient ac("move_base", true);
-
-    // Wait for the action server to come up
-    while(!ac.waitForServer(ros::Duration(5.0))) {
-      ROS_INFO("Waiting for the move_base action server to come up");
-    }
-
-    move_base_msgs::MoveBaseGoal goal;
-
-    // We'll send a goal to the robot to move 1 meter forward
-    goal.target_pose.header.frame_id = "base_link";
-    goal.target_pose.header.stamp = ros::Time::now();
-
-    goal.target_pose.pose.position.x = 1.0;
-    goal.target_pose.pose.orientation.w = 1.0;
-    goal.target_pose.pose.orientation.s = 1.0;
-    goal.target_pose.pose.position.x = 1.0;
-
-    ROS_INFO("Sending goal");
-    ac.sendGoal(goal);
-    ac.waitForResult();
-
-    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-      ROS_INFO("Hooray, the base moved 1 meter forward");
-    else
-      ROS_INFO("The base failed to move forward 1 meter for some reason");
+    ROS_INFO("Waiting for the move_base action server to come up");
   }
-  return 0;
+
+  move_base_msgs::MoveBaseGoal goal;
+  goal.target_pose.header.frame_id = "base_link";
+  goal.target_pose.header.stamp = ros::Time::now();
+
+  goal.target_pose.pose.position.x = 1.0;
+  goal.target_pose.pose.orientation.w = 1.0;
+
+  ROS_INFO("Sending goal");
+  ac.sendGoal(goal);
+
+  ac.waitForResult();
+
+  std::stringstream status_ss;
+
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)      
+  {
+    status_ss << "Hooray, the base moved 1 meter forward";
+  }
+  else
+  {
+    status_ss << "It's fucked bruv.";
+  }
+
+  check_status.data = status_ss.c_str();
+  check_pub.publish(check_status);
+}
+
+void step2()
+{
+
+  MoveBaseClient ac("move_base", true);
+
+  while(!ac.waitForServer(ros::Duration(5.0)))
+  {
+    ROS_INFO("Waiting for the move_base action server to come up");
+  }
+
+  move_base_msgs::MoveBaseGoal goal;
+  goal.target_pose.header.frame_id = "base_link";
+  goal.target_pose.header.stamp = ros::Time::now();
+
+  goal.target_pose.pose.position.x = -1.0;
+  goal.target_pose.pose.orientation.w = 1.0;
+
+  ROS_INFO("Sending goal");
+  ac.sendGoal(goal);
+
+  ac.waitForResult();
+
+  std::stringstream status_ss;
+
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)      
+  {
+    status_ss << "Hooray, the base moved 1 meter forward";
+  }
+  else
+  {
+    status_ss << "It's fucked bruv.";
+  }
+
+  check_status.data = status_ss.c_str();
+  check_pub.publish(check_status);
+}
+
+int main(int argc, char** argv){
+  ros::init(argc, argv, "simple_navigation_goals");
+
+  ros::Subscriber task_sub = n.subscribe("task", 100, task_func);
+  sound_play::SoundClient sc;
+  path_to_sounds = "";    
+  // sc.playWave(path_to_sounds+"ship_bell.wav");
+
+  if(task_temp == "checklist")
+  {
+    ros::Rate loop_rate(10);
+    ros::Publisher check_pub = n.advertise<std_msgs::String>("check_status", 1000);
+
+    //signal operation start 
+    sc.playWave(path_to_sounds+"ship_bell.wav");
+    //checklist step1
+    step1();
+    step2();
+
+    return 0;
+
+  }
+  
 }
