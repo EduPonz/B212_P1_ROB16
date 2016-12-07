@@ -30,11 +30,10 @@ class Interface {
     float shippingx = 0.621;
     float shippingy = -1.86;
 
-    string task = "";
     string robot_choice = "";
 
     //Robot choosing function #sodynamic
-    void chooseRobot(string& robot_choice) {
+    void _chooseRobot(string& robot_choice) {
       int num_of_bots = 2;
    
       //Possibility of creating a dynamic table that registers whether a robot is available
@@ -68,17 +67,25 @@ class Interface {
       }while(available == false);
     } 
 
-    void publishTask (string task, ros::Publisher task_pub) {
-      std_msgs::String task_msg;
-      // Sending task to lognode
-      task_msg.data = task;
-      // Publishing task to topic 
-      task_pub.publish(task_msg);
-      // Spin used to initialize the callback function in publishing
-      ros::spinOnce(); 
+    void _publishTask (int t, ros::Publisher task_pub) {
+        string task;
+        switch (t){
+            case 1:
+                task = "Checklist";
+            case 2:
+                task = "Move";
+        }
+
+        std_msgs::String task_msg;
+        // Sending task to lognode
+        task_msg.data = task;
+        // Publishing task to topic 
+        task_pub.publish(task_msg);
+        // Spin used to initialize the callback function in publishing
+        ros::spinOnce(); 
     }
 
-    void databaseInterface () {
+    void _databaseInterface () {
         cout << "Which product would you like to pick?" << endl;
         cout << "  Carlsberg---> 1" << endl;
         cout << "  Tuborg------> 2" << endl;
@@ -91,16 +98,81 @@ class Interface {
         cout << "Press the number for choosing an option: ";
     }
 
-    float numberBuild(ifstream &file) {
+    void _moveInterface (ros::Publisher coord_pub, ros::NodeHandle n) {
+        string choice = "";
+        //dynamic stuff lata    
+        cout << "OK, where do you want the robot to go? I have these locations:"  << endl;
+        cout << " Input ("     << inputx      << ", " << inputy    << ") "        << endl 
+             << " Shipping ("  << shippingx   << ", " << shippingy << ") "        << endl
+             << " Database"                                                       << endl
+             << " Or you can choose a 'dynamic' point from 'rviz'."               << endl;
+    
+        geometry_msgs::Point msg;
+        cin >> choice;        
+
+        do{
+            if (choice == "input" || choice == "Input") {
+    
+                msg.x = inputx;
+                msg.y = inputy;
+                choice = "";
+                cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
+
+            }else if (choice == "shipping" || choice == "Shipping") {
+
+                msg.x = shippingx;
+                msg.y = shippingy;
+                choice = "";
+                cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
+
+            }else if (choice == "Database" || choice == "database") {
+
+                int databaseOption;
+                _databaseInterface ();
+                cin >> databaseOption;
+                cout << "You chose: " << databaseOption << endl;
+                _orderProcessing (databaseOption);
+                choice = "";
+
+            }else if (choice == "dynamic" || choice == "Dynamic") {
+
+                // Making a subscription to the rviz coordinate topic "clicked point"
+                click_sub = n.subscribe("clicked_point", 100, &Interface::_rviz_click, this);                   
+              
+                // Will continue to initialize the callback function until a set of coordinates
+                // has been published from rviz. i.e. the value of x coordinate changes.
+                while( (x_cor == 0) && (y_cor == 0)) {
+                    // Initialize call back function in a loop that will end when coordinates are found.
+                    ros::spinOnce();  
+                }
+                msg.x = x_cor;  
+                msg.y = y_cor;
+                choice = "";
+
+            }else {
+                cout << "Sorry, I didn't understand that. Please insert a new location command:" << endl;
+                cin >> choice;
+            }
+
+        }while(choice != "");
+     
+            // Publishing coordinates to topic
+            coord_pub.publish(msg); 
+            ros::spinOnce();
+            x_cor = 0;
+            y_cor = 0;
+    }
+
+    float _numberBuild(ifstream &file) {
         float n = 0;
         int sgn = 1;
         char temp;
         int c = file.peek();
         // Checking for a -
-       if (c == 45){
+        if (c == 45){
             sgn = -1;
             file.get(temp);
-      }
+        }
         c = file.peek();
         // Checking for numbers
         while((48 <= c) && (c <= 57)){
@@ -125,7 +197,7 @@ class Interface {
         return n;
     }
 
-    void readfunc(float &xval, float &yval, float &zval, float &wval, int lineNumb) {
+    void _readfunc(float &xval, float &yval, float &zval, float &wval, int lineNumb) {
 
         ifstream file("data.txt");
         string line;
@@ -133,19 +205,19 @@ class Interface {
             getline (file, line);
         }
         file.ignore(256,' ');
-        xval = numberBuild(file);
-        yval = numberBuild(file);
-        zval = numberBuild(file);
-        wval = numberBuild(file);
+        xval = _numberBuild(file);
+        yval = _numberBuild(file);
+        zval = _numberBuild(file);
+        wval = _numberBuild(file);
         file.close();
     }
 
-    void orderProcessing (int order) {
+    void _orderProcessing (int order) {
         float xval;
         float yval;
         float zval;
         float wval;
-        readfunc(xval, yval, zval, wval, order);
+        _readfunc(xval, yval, zval, wval, order);
         cout << "THE COORDINATES ARE" << endl;
         cout << " 1st coord " << xval << " " << endl
              << " 2nd coord " << yval << " " << endl
@@ -154,100 +226,35 @@ class Interface {
     }
 
     void _owlBot_interface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::NodeHandle n) {
+        int task;
         do { 
-            cout << "Which task: 'checklist', 'move' or 'quit'?" << endl;
+            cout << endl << " Which task do you want to perfom:" << endl
+                 << "   Press 1 for Checklist" << endl
+                 << "   Press 2 for Move"      << endl
+                 << "   Press 3 for Quit"      << endl
+                 << " Your choose: ";
             cin >> task;
-
-            if (task == "checklist" || task == "Checklist") {
-
-                chooseRobot(robot_choice);
-                cout << "The checklist command is being sent to '" << robot_choice << "'.\n";
-                publishTask (task, task_pub);
-      
-            }else if (task == "move" || task == "Move") {
-
-                chooseRobot(robot_choice);
-                publishTask (task, task_pub);
-
-                //dynamic stuff lata    
-                cout << "OK, where do you want the robot to go? I have these locations:" << endl;
-                cout << "Input ("     << inputx      << ", " << inputy    << ") "        << endl
-                << "Shipping ("  << shippingx   << ", " << shippingy << ") "        << endl
-                << "Database"                                                       << endl
-                << "Or you can choose a 'dynamic' point from 'rviz'."               << endl;
-    
-                geometry_msgs::Point msg;
-                string choice;
-                cin >> choice;        
-
-                do{
-                    if (choice == "input" || choice == "Input") {
-            
-                        msg.x = inputx;
-                        msg.y = inputy;
-                        choice = "";
-                        cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-
-                    }else if (choice == "shipping" || choice == "Shipping") {
-
-                        msg.x = shippingx;
-                        msg.y = shippingy;
-                        choice = "";
-                        cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-
-                    }else if (choice == "Database" || choice == "database") {
-
-                        int databaseOption;
-                        databaseInterface ();
-                        cin >> databaseOption;
-                        cout << "You chose: " << databaseOption << endl;
-                        orderProcessing (databaseOption);
-                        choice = "";
-
-                    }else if (choice == "dynamic" || choice == "Dynamic") {
-
-                        // Making a subscription to the rviz coordinate topic "clicked point"
-                        click_sub = n.subscribe("clicked_point", 100, &Interface::rviz_click, this);                   
-              
-                        // Will continue to initialize the callback function until a set of coordinates
-                        // has been published from rviz. i.e. the value of x coordinate changes.
-                        while( (x_cor == 0) && (y_cor == 0)) {
-                        // Initialize call back function in a loop that will end when coordinates are found.
-                        ros::spinOnce();  
-                        }
-          
-                    choice = "";     
-                    msg.x = x_cor;  
-                    msg.y = y_cor;
-
-                    }else {
-                        cout << "Sorry, I didn't understand that. Please insert a new location command:" << endl;
-                        cin >> choice;
-                    }
-                }while(choice != "");   
-    
-                // Publishing coordinates to topic
-                coord_pub.publish(msg); 
-                ros::spinOnce();
-
-                x_cor = 0;
-                y_cor = 0;
-    
-                // Break from while loop. ending program.
-            }else if (task == "quit") {
-                cout << "Thanks for helping us with our hard work!" << endl;
-                break;
-
-            }else {
-                cout << "Sorry, I couldn't understand that, try again!" << endl;
+            switch (task){
+                case 1:
+                    _chooseRobot(robot_choice);
+                    cout << "The checklist command is being sent to '" << robot_choice << "'.\n";
+                    _publishTask (task, task_pub);
+                case 2:
+                    _chooseRobot(robot_choice);
+                    _publishTask (task, task_pub);
+                    _moveInterface (coord_pub, n);
+                case 3:
+                    cout << "Thanks for helping us with our hard work!" << endl;
+                    break;
+                default:
+                    cout << "Sorry, I couldn't understand that, try again!" << endl;
             }
-
-        // Will continue to run the program as long as quit is never the input for the variable "task"
-        }while(task != "quit");
+        // Will continue to run the program as long as 3 is not the input for the variable "task"
+        }while(task != 3);
     }
 
     // Callback equation for getting rViz coordinates 
-    void rviz_click(const geometry_msgs::PointStamped::ConstPtr& msg) {
+    void _rviz_click(const geometry_msgs::PointStamped::ConstPtr& msg) {
   
       x_cor = msg->point.x;
       y_cor = msg->point.y;
@@ -257,11 +264,10 @@ class Interface {
   public:
     // Class constructor
     Interface(ros::NodeHandle n) {
+
       // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
       ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("coordinates", 1000);
       ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
-      //ros::Rate loop_rate(10); //the hz it will use to push the data through the topic
-      // Beginning of interface: requesting what action to take
       _owlBot_interface (coordPublisher, taskPublisher, n);
     };
 
