@@ -16,6 +16,8 @@
 
 using namespace std;
 
+std::string _get_file (std::ifstream&);
+
 class Interface {
   private:
     ros::Subscriber click_sub;
@@ -152,6 +154,27 @@ class Interface {
              << " 3rd coord " << zval << " " << endl
              << " 4th coord " << wval << " " << endl;
     }
+    string _get_file (std::ifstream& File)
+    {
+      string Lines = "";
+        
+      if (File)                      
+      {
+        while (File.good ())
+        {
+          string TempLine;               
+          std::getline (File , TempLine);
+          TempLine += "\n";          
+          
+          Lines += TempLine;         
+        }
+        return Lines;
+      }
+      else                           
+      {
+        return "ERROR File does not exist.";
+      }
+    }
 
     void _owlBot_interface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::NodeHandle n) {
         do { 
@@ -261,6 +284,11 @@ class Interface {
       ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("coordinates", 1000);
       ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
       //ros::Rate loop_rate(10); //the hz it will use to push the data through the topic
+      //CHANGE THE PATH RIGHT HERE FROM YOUR ROOT FOLDER (HOME)
+      ifstream Reader ("/home/davidm/beginner_tuts/src/nodes/src/ascii.txt");             //Open file
+      string Art = _get_file (Reader);       //Get file
+      cout << Art << std::endl;               //Print it to the screen
+      Reader.close (); 
       // Beginning of interface: requesting what action to take
       _owlBot_interface (coordPublisher, taskPublisher, n);
     };
