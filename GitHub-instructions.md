@@ -18,7 +18,8 @@ Compile
 	2-Terminal--> Catkin Build
 
 Commit & Push
-	1-Terminal--> git add --all
+	1-Go to the /B212_P1_ROB16/src
+		1-Terminal--> git add nodes
 	2-Terminal--> git commit -m 'message about the commit'
 	3-Terminal--> git push
 
