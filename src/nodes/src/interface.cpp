@@ -16,8 +16,6 @@
 
 using namespace std;
 
-std::string _get_file (std::ifstream&);
-
 class Interface {
   private:
     ros::Subscriber click_sub;
@@ -226,18 +224,19 @@ class Interface {
              << " 3rd coord " << zval << " " << endl
              << " 4th coord " << wval << " " << endl;
     }
-    
-    string _get_file (std::ifstream& file) {
-        string Lines = "";
-        if (file.good()) {
-            while (file.good ()) {
-                string TempLine;               
-                std::getline (file , TempLine);
-                TempLine += "\n";          
-                Lines += TempLine;         
-            }
-        return Lines;
-        }else {
+
+    string _get_file (std::ifstream& File) {
+        string Lines = "";       
+        if (File.good ()) {
+        while (File.good ()) {
+            string TempLine;               
+            std::getline (File , TempLine);
+            TempLine += "\n";          
+            Lines += TempLine;         
+        }
+            return Lines;
+        }
+        else {
             return "ERROR File does not exist.";
         }
     }
@@ -281,15 +280,15 @@ class Interface {
   public:
     // Class constructor
     Interface(ros::NodeHandle n) {
-        // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
+
+      // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
         ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
-        //CHANGE THE PATH RIGHT HERE FROM YOUR ROOT FOLDER (HOME)
         ifstream Reader ("ascii.txt");             //Open file
         string Art = _get_file (Reader);       //Get file
         cout << Art << std::endl;               //Print it to the screen
         Reader.close (); 
-      _owlBot_interface (coordPublisher, taskPublisher, n);
+        _owlBot_interface (coordPublisher, taskPublisher, n);
     };
 
     // Call Destructor
