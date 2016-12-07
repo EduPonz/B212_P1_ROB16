@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sstream>
+#include <fstream>  //for opening, reading and writing
+#include <math.h>
 
 using namespace std;
 
@@ -27,9 +29,6 @@ class Interface {
     // Shipping Point
     float shippingx = 0.621;
     float shippingy = -1.86;
-    // Aisle Point
-    float aislex = -0.889;
-    float aisley = -1.2;
 
     string task = "";
     string robot_choice = "";
@@ -79,6 +78,82 @@ class Interface {
       ros::spinOnce(); 
     }
 
+    void databaseInterface () {
+        cout << "Which product would you like to pick?" << endl;
+        cout << "  Carlsberg---> 1" << endl;
+        cout << "  Tuborg------> 2" << endl;
+        cout << "  NewCastle---> 3" << endl;
+        cout << "  Guinness----> 4" << endl;
+        cout << "  Pepsi-------> 5" << endl;
+        cout << "  Coca-Cola---> 6" << endl;
+        cout << "  Fanta-------> 7" << endl;
+        cout << "  Sprite------> 8" << endl;
+        cout << "Press the number for choosing an option: ";
+    }
+
+
+    float numberBuild(ifstream &file) {
+        float n = 0;
+        int sgn = 1;
+        char temp;
+        int c = file.peek();
+        // Checking for a -
+       if (c == 45){
+            sgn = -1;
+            file.get(temp);
+      }
+        c = file.peek();
+        // Checking for numbers
+        while((48 <= c) && (c <= 57)){
+            n=10*n + (c-48);
+            file.get(temp);
+            c = file.peek();
+        }
+        //check for comma or dot
+        if ((c == 46) || (c == 44)){
+            file.get(temp);
+            float k = 1;
+            c = file.peek();
+            while((48 <= c) && (c <= 57)){
+                n = n + ((c-48)/(pow(10, k)));
+                k = k+1;
+                file.get(temp);
+                c = file.peek();
+            }
+        }
+        file.get(temp);
+        n = n*sgn;
+        return n;
+    }
+
+    void readfunc(float &xval, float &yval, float &zval, float &wval, int lineNumb) {
+
+        ifstream file("data.txt");
+        string line;
+        for (int i = 1; i < lineNumb; i++){
+            getline (file, line);
+        }
+        file.ignore(256,' ');
+        xval = numberBuild(file);
+        yval = numberBuild(file);
+        zval = numberBuild(file);
+        wval = numberBuild(file);
+        file.close();
+    }
+
+    void orderProcessing (int order) {
+        float xval;
+        float yval;
+        float zval;
+        float wval;
+        readfunc(xval, yval, zval, wval, order);
+        cout << "THE COORDINATES ARE" << endl;
+        cout << " 1st coord " << xval << " " << endl
+             << " 2nd coord " << yval << " " << endl
+             << " 3rd coord " << zval << " " << endl
+             << " 4th coord " << wval << " " << endl;
+    }
+
     // Callback equation for getting rViz coordinates 
     void rviz_click(const geometry_msgs::PointStamped::ConstPtr& msg) {
   
@@ -110,19 +185,16 @@ class Interface {
           chooseRobot(robot_choice);
           publishTask (task, task_pub);
 
-          cout << "OK, where do you want the robot to go? I have these locations:" << endl; //dynamic stuff lata    
-          cout << "Input(" << inputx << ", " << inputy << ") " <<
-                  "Shipping(" << shippingx << ", " << shippingy << ") " <<
-                  "Aisle(" << aislex << ", " << aisley << ") " << "Or you can choose a 'dynamic' point from 'rviz'." << endl;
+          //dynamic stuff lata    
+          cout << "OK, where do you want the robot to go? I have these locations:" << endl;
+          cout << "Input ("     << inputx      << ", " << inputy    << ") "        << endl
+               << "Shipping ("  << shippingx   << ", " << shippingy << ") "        << endl
+               << "Database"                                                       << endl
+               << "Or you can choose a 'dynamic' point from 'rviz'."               << endl;
     
           geometry_msgs::Point msg;
           string choice;
           cin >> choice;        
-     
-          // Downside of this is that gibberish gets in too
-          if (!(choice == "dynamic" || choice == "Dynamic")) {
-            cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-          }
 
           do{
             if (choice == "input" || choice == "Input") {
@@ -130,18 +202,23 @@ class Interface {
               msg.x = inputx;
               msg.y = inputy;
               choice = "";
+              cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
 
             }else if (choice == "shipping" || choice == "Shipping") {
 
               msg.x = shippingx;
               msg.y = shippingy;
               choice = "";
+              cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
 
-            }else if (choice == "aisle" || choice == "Aisle") {
+            }else if (choice == "Database" || choice == "database") {
 
-              msg.x = aislex;
-              msg.y = aisley;
-              choice = "";
+                int databaseOption;
+                databaseInterface ();
+                cin >> databaseOption;
+                cout << "You chose: " << databaseOption << endl;
+                orderProcessing (databaseOption);
+                choice = "";
 
             }else if (choice == "dynamic" || choice == "Dynamic") {
 
