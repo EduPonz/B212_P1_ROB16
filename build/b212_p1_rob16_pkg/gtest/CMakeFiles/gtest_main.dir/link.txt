@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC   -shared -Wl,-soname,libgtest_main.so -o libgtest_main.so CMakeFiles/gtest_main.dir/src/gtest_main.cc.o  -L/home/eduponz/B212_P1_ROB16/build/b212_p1_rob16_pkg/gtest/src -lpthread libgtest.so -lpthread -Wl,-rpath,/home/eduponz/B212_P1_ROB16/build/b212_p1_rob16_pkg/gtest/src:/home/eduponz/B212_P1_ROB16/build/b212_p1_rob16_pkg/gtest 

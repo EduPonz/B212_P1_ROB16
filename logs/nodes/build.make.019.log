@@ -1,0 +1,24 @@
+[  0%] Built target _nodes_generate_messages_check_deps_PointStamped
+[  0%] Built target _nodes_generate_messages_check_deps_Point
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[ 11%] Built target move_to_point
+[ 11%] Built target std_msgs_generate_messages_eus
+[ 11%] Built target geometry_msgs_generate_messages_eus
+[ 11%] Built target std_msgs_generate_messages_py
+[ 11%] Built target geometry_msgs_generate_messages_py
+[ 11%] Built target std_msgs_generate_messages_lisp
+[ 11%] Built target geometry_msgs_generate_messages_lisp
+[ 11%] Built target geometry_msgs_generate_messages_nodejs
+[ 22%] Built target nodes_generate_messages_cpp
+[ 22%] Built target std_msgs_generate_messages_nodejs
+[ 38%] Built target nodes_generate_messages_eus
+[ 55%] Built target nodes_generate_messages_py
+[ 66%] Built target nodes_generate_messages_lisp
+[ 77%] Built target nodes_generate_messages_nodejs
+[ 88%] Built target interface
+[35m[1mScanning dependencies of target lognode[0m
+[ 88%] Built target nodes_generate_messages
+[ 94%] [32mBuilding CXX object CMakeFiles/lognode.dir/src/lognode.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/eduponz/B212_P1_ROB16/devel/.private/nodes/lib/nodes/lognode[0m
+[100%] Built target lognode

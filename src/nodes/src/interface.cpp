@@ -16,7 +16,6 @@ using namespace std;
 
 class Interface {
   private:
-
     ros::Subscriber click_sub;
     // Variable to storage coordinates from rViz
     float x_cor;
