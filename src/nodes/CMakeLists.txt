@@ -55,5 +55,6 @@ add_dependencies(interface nodes_generate_messages_cpp)
 add_executable(move_to_point src/move_to_point.cpp)
 target_link_libraries(move_to_point ${catkin_LIBRARIES})
 #add_dependencies(move_to_point_generate_messages_cpp)
-#add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
-#target_link_libraries(simple_navigation_goals ${catkin_LIBRARIES})
+
+add_executable(checklist src/checklist.cpp)
+target_link_libraries(checklist ${catkin_LIBRARIES})
