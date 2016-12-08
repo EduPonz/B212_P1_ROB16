@@ -16,6 +16,8 @@ find_package(catkin REQUIRED COMPONENTS
 #add_message_files(FILES Num.msg)
 add_message_files(FILES Point.msg)
 add_message_files(FILES PointStamped.msg)
+add_message_files(FILES Quaternion.msg)
+add_message_files(FILES QuaternionStamped.msg)
 #add_service_files(FILES AddTwoInts.srv)
 
 ## Add message files
@@ -25,7 +27,8 @@ add_message_files(
 	FILES
 	Point.msg
 	PointStamped.msg
-
+	Quaternion.msg
+	QuaternionStamped.msg
 )
 
 include_directories(

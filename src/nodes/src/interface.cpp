@@ -2,6 +2,8 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/PointStamped.h"
+#include "geometry_msgs/Quaternion.h"
+#include "geometry_msgs/QuaternionStamped.h"
 #include <ros/console.h>
 #include <iostream>
 #include <string.h>
@@ -23,12 +25,17 @@ class Interface {
     float x_cor;
     float y_cor;
     float z_cor;
+    float w_cor;
     // Input Point
     float inputx = -4.43;
     float inputy = -1.1;
+    float inputz = 0.0;
+    float inputw = 1.0;
     // Shipping Point
     float shippingx = 0.621;
     float shippingy = -1.86;
+    float shippingz = 0.0;
+    float shippingw = 1.0;
 
     string robot_choice = "";
 
@@ -98,32 +105,40 @@ class Interface {
         cout << "Press the number for choosing an option: ";
     }
 
-    void _moveInterface (ros::Publisher coord_pub, ros::NodeHandle n) {
+    void _publishQuaternion (float x, float y, float z, float w, ros::Publisher quat_Publisher){
+        geometry_msgs::Quaternion quaternion_msg;
+        quaternion_msg.x = x;
+        quaternion_msg.y = y;
+        quaternion_msg.z = z;
+        quaternion_msg.w = w;
+        quat_Publisher.publish(quaternion_msg); 
+        ros::spinOnce();
+    }
+
+    void _moveInterface (ros::Publisher coord_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
         string choice = "";
         //dynamic stuff lata    
         cout << "OK, where do you want the robot to go? I have these locations:"  << endl;
-        cout << " Input ("     << inputx      << ", " << inputy    << ") "        << endl 
-             << " Shipping ("  << shippingx   << ", " << shippingy << ") "        << endl
-             << " Database"                                                       << endl
-             << " Or you can choose a 'dynamic' point from 'rviz'."               << endl;
+        cout << " Input ("     << inputx      << ", " << inputy    << ", " << inputz    << ", " << inputw << ") "    << endl 
+             << " Shipping ("  << shippingx   << ", " << shippingy << ", " << shippingz << ", " << shippingw << ") " << endl
+             << " Database"                                                << endl
+             << " Or you can choose a 'dynamic' point from 'rviz'."        << endl;
     
-        geometry_msgs::Point msg;
+        geometry_msgs::Point point_msg;
         cin >> choice;        
 
         do{
             if (choice == "input" || choice == "Input") {
-    
-                msg.x = inputx;
-                msg.y = inputy;
-                choice = "";
+                
+                _publishQuaternion (inputx, inputy, inputz, inputw, quat_Publisher);
                 cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
+                choice = "";
 
             }else if (choice == "shipping" || choice == "Shipping") {
 
-                msg.x = shippingx;
-                msg.y = shippingy;
-                choice = "";
+                _publishQuaternion (shippingx, shippingy, shippingz, shippingw, quat_Publisher);
                 cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
+                choice = "";
 
             }else if (choice == "Database" || choice == "database") {
 
@@ -131,7 +146,7 @@ class Interface {
                 _databaseInterface ();
                 cin >> databaseOption;
                 cout << "You chose: " << databaseOption << endl;
-                _orderProcessing (databaseOption);
+                _orderProcessing (databaseOption, quat_Publisher);
                 choice = "";
 
             }else if (choice == "dynamic" || choice == "Dynamic") {
@@ -145,8 +160,10 @@ class Interface {
                     // Initialize call back function in a loop that will end when coordinates are found.
                     ros::spinOnce();  
                 }
-                msg.x = x_cor;  
-                msg.y = y_cor;
+                point_msg.x = x_cor;  
+                point_msg.y = y_cor;
+                coord_pub.publish(point_msg); 
+                ros::spinOnce();
                 choice = "";
 
             }else {
@@ -157,8 +174,7 @@ class Interface {
         }while(choice != "");
      
             // Publishing coordinates to topic
-            coord_pub.publish(msg); 
-            ros::spinOnce();
+            
             x_cor = 0;
             y_cor = 0;
     }
@@ -212,12 +228,13 @@ class Interface {
         file.close();
     }
 
-    void _orderProcessing (int order) {
+    void _orderProcessing (int order, ros::Publisher quat_Publisher) {
         float xval;
         float yval;
         float zval;
         float wval;
         _readfunc(xval, yval, zval, wval, order);
+        _publishQuaternion(xval, yval, zval, wval, quat_Publisher);
         cout << "THE COORDINATES ARE" << endl;
         cout << " 1st coord " << xval << " " << endl
              << " 2nd coord " << yval << " " << endl
@@ -235,13 +252,12 @@ class Interface {
             Lines += TempLine;         
         }
             return Lines;
-        }
-        else {
+        }else {
             return "ERROR File does not exist.";
         }
     }
 
-    void _owlBot_interface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::NodeHandle n) {
+    void _owlBot_interface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
         int task;
         do { 
             cout << endl << " Which task do you want to perfom:" << endl
@@ -258,7 +274,7 @@ class Interface {
                 case 2:
                     _chooseRobot(robot_choice);
                     _publishTask (task, task_pub);
-                    _moveInterface (coord_pub, n);
+                    _moveInterface (coord_pub, quat_Publisher, n);
                 case 3:
                     cout << "Thanks for helping us with our hard work!" << endl;
                     break;
@@ -282,13 +298,14 @@ class Interface {
     Interface(ros::NodeHandle n) {
 
       // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
-        ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("coordinates", 1000);
+        ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("point_coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
+        ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000);
         ifstream Reader ("ascii.txt");             //Open file
         string Art = _get_file (Reader);       //Get file
         cout << Art << std::endl;               //Print it to the screen
         Reader.close (); 
-        _owlBot_interface (coordPublisher, taskPublisher, n);
+        _owlBot_interface (coordPublisher, taskPublisher, quatPublisher, n);
     };
 
     // Call Destructor

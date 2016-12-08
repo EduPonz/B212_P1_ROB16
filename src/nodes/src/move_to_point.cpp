@@ -3,6 +3,8 @@
 #include "std_msgs/String.h"
 #include <actionlib/client/simple_action_client.h>
 #include "geometry_msgs/Point.h"
+#include "geometry_msgs/Quaternion.h"
+#include "geometry_msgs/QuaternionStamped.h"
 #include <iostream>
 #include <string.h>
 #include <string>
@@ -10,8 +12,10 @@
 // Declaring global floats to take on coordinate values
 float xcoord = 0;
 float ycoord = 0;
+float zcoord = 0;
+float wcoord = 0;
 
-void moveToGoal(float xGoal, float yGoal, ros::Publisher status_pub) { 
+void moveToGoal(float xGoal, float yGoal, float zGoal, float wGoal, ros::Publisher status_pub) { 
 	// Define a client to send goal requests to the move_base server through a SimpleActionClient
 	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
 	std_msgs::String msg;
@@ -40,15 +44,14 @@ void moveToGoal(float xGoal, float yGoal, ros::Publisher status_pub) {
 	goal.target_pose.pose.position.z =  0.0;
 	goal.target_pose.pose.orientation.x = 0.0;
 	goal.target_pose.pose.orientation.y = 0.0;
-	goal.target_pose.pose.orientation.z = sqrt(2)/2;
-	goal.target_pose.pose.orientation.w = sqrt(2)/2;
+	goal.target_pose.pose.orientation.z = zGoal;
+	goal.target_pose.pose.orientation.w = wGoal;
 
 	ac.sendGoal(goal);
 	ac.waitForResult();
 
 	// If else statement for whether or not the robot succeeded in motion operation.
 	if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-		
       status_ss << "The robot has reached the destination";
       msg.data = status_ss.str(); 
 	}else {
@@ -65,19 +68,28 @@ void coord_func(const geometry_msgs::Point::ConstPtr& msg) {
 	ycoord = msg->y;
 }
 
+void quat_func(const geometry_msgs::Quaternion::ConstPtr& msg) {
+	// Assigning the values pointed to to the global variables so they can be used in the main function.
+	xcoord = msg->x;
+	ycoord = msg->y;
+	zcoord = msg->z;
+	wcoord = msg->w;
+}
+
 int main(int argc, char** argv) {
 	ros::init(argc, argv, "move_to_point"); 
 	ros::NodeHandle n;
 	ros::spinOnce();
 
 	ros::Publisher status_pub = n.advertise<std_msgs::String>("success_fail", 1000); //initializing publisher to advertise status to lognode
-	ros::Subscriber click_sub = n.subscribe("coordinates", 100, coord_func); //initialising subscriber to receive coordinates published by interface
+	ros::Subscriber quat_sub = n.subscribe("quat_coordinates", 100, quat_func);
+	ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, coord_func); //initialising subscriber to receive coordinates published by interface
 	// Will continue to call the callback function until a set of coordinates has been published
 	while( (xcoord == 0) && (ycoord == 0)) {
         ros::spinOnce(); 
     }
 	// Call to function moveToGoal (see below)
-	moveToGoal(xcoord, ycoord, status_pub);
+	moveToGoal(xcoord, ycoord, zcoord, wcoord, status_pub);
 
 	return 0;
 }
