@@ -88,7 +88,7 @@ class Checklist
       ros::Subscriber task_sub = n.subscribe("task", 100, &Checklist::_taskFunc, this);
 
       ros::Rate loop_rate(10);
-      ros::Publisher check_pub = n.advertise<std_msgs::String>("check_status", 100);
+      ros::Publisher check_pub = n.advertise<std_msgs::String>("check_status_msg", 100);
 
 
       if(task_temp == "checklist")
