@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sstream>
-#include <fstream>  //for opening, reading and writing
+#include <fstream>
 #include <math.h>
 
 using namespace std;
@@ -21,17 +21,17 @@ using namespace std;
 class Interface {
   private:
     ros::Subscriber click_sub;
-    // Variable to storage coordinates from rViz
+    // Variable to store coordinates from rViz
     float x_cor;
     float y_cor;
     float z_cor;
     float w_cor;
-    // Input Point
-    float inputx = -4.43;
-    float inputy = -1.1;
-    float inputz = 0.0;
-    float inputw = 1.0;
-    // Shipping Point
+    // receiving coordinates
+    float receivingx = -4.43;
+    float receivingy = -1.1;
+    float receivingz = 0.0;
+    float receivingw = 1.0;
+    // Shipping coordinates
     float shippingx = 0.621;
     float shippingy = -1.86;
     float shippingz = 0.0;
@@ -93,16 +93,16 @@ class Interface {
     }
 
     void _databaseInterface (int& databaseOption) {
-        cout << "Which product would you like to pick?" << endl;
-        cout << "  Carlsberg---> 1" << endl;
-        cout << "  Tuborg------> 2" << endl;
-        cout << "  NewCastle---> 3" << endl;
-        cout << "  Guinness----> 4" << endl;
-        cout << "  Pepsi-------> 5" << endl;
-        cout << "  Coca-Cola---> 6" << endl;
-        cout << "  Fanta-------> 7" << endl;
-        cout << "  Sprite------> 8" << endl;
-        cout << "Press the number for choosing an option: ";
+        cout << "Which product would you like to pick?" << endl
+             << "  Carlsberg---> 1" << endl
+             << "  Tuborg------> 2" << endl
+             << "  NewCastle---> 3" << endl
+             << "  Guinness----> 4" << endl
+             << "  Pepsi-------> 5" << endl
+             << "  Coca-Cola---> 6" << endl
+             << "  Fanta-------> 7" << endl
+             << "  Sprite------> 8" << endl
+             << "Press the number for choosing an option: ";
         cin >> databaseOption;
     }
 
@@ -117,40 +117,32 @@ class Interface {
     }
 
     void _moveInterface (ros::Publisher coord_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
-        string choice = "";
-        //dynamic stuff lata    
-        cout << "OK, where do you want the robot to go? I have these locations:"  << endl;
-        cout << " Input ("     << inputx      << ", " << inputy    << ", " << inputz    << ", " << inputw << ") "    << endl 
-             << " Shipping ("  << shippingx   << ", " << shippingy << ", " << shippingz << ", " << shippingw << ") " << endl
-             << " Database"                                                << endl
-             << " Or you can choose a 'dynamic' point from 'rviz'."        << endl;
-    
+        int choice = 0;
+        //dynamic stuff lata
+
+        cout << "Press 1 for receiving" "("     << receivingx      << ", " << receivingy    << ", " << receivingz    << ", " << receivingw << ")" << endl
+             << "Press 2 for shipping" "("  << shippingx   << ", " << shippingy << ", " << shippingz << ", " << shippingw << ")" << endl
+             << "Press 3 for database" << endl
+             << "Press 4 for dynamic point" << endl;
         geometry_msgs::Point point_msg;
         cin >> choice;        
 
-        do{
-            if (choice == "input" || choice == "Input") {
-                
-                _publishQuaternion (inputx, inputy, inputz, inputw, quat_Publisher);
+        switch(choice){
+              case 1:
+                _publishQuaternion (receivingx, receivingy, receivingz, receivingw, quat_Publisher);
                 cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-                choice = "";
-
-            }else if (choice == "shipping" || choice == "Shipping") {
-
+              break;
+              case 2:
                 _publishQuaternion (shippingx, shippingy, shippingz, shippingw, quat_Publisher);
                 cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-                choice = "";
-
-            }else if (choice == "Database" || choice == "database") {
-
+              break;
+              case 3:
                 int databaseOption;
                 _databaseInterface (databaseOption);
                 cout << "You chose: " << databaseOption << endl;
                 _orderProcessing (databaseOption, quat_Publisher);
-                choice = "";
-
-            }else if (choice == "dynamic" || choice == "Dynamic") {
-
+              break;
+              case 4:
                 // Making a subscription to the rviz coordinate topic "clicked point"
                 click_sub = n.subscribe("clicked_point", 100, &Interface::_rviz_click, this);                   
               
@@ -164,15 +156,13 @@ class Interface {
                 point_msg.y = y_cor;
                 coord_pub.publish(point_msg); 
                 ros::spinOnce();
-                choice = "";
+              break;
 
-            }else {
+              default:
                 cout << "Sorry, I didn't understand that. Please insert a new location command:" << endl;
                 cin >> choice;
-            }
-
-        }while(choice != "");
-     
+              break;
+          } 
             // Publishing coordinates to topic
             
             x_cor = 0;
@@ -235,8 +225,8 @@ class Interface {
         float wval;
         _readfunc(xval, yval, zval, wval, order);
         _publishQuaternion(xval, yval, zval, wval, quat_Publisher);
-        cout << "THE COORDINATES ARE" << endl;
-        cout << " 1st coord " << xval << " " << endl
+        cout << "THE COORDINATES ARE" << endl
+             << " 1st coord " << xval << " " << endl
              << " 2nd coord " << yval << " " << endl
              << " 3rd coord " << zval << " " << endl
              << " 4th coord " << wval << " " << endl;
@@ -264,7 +254,7 @@ class Interface {
                  << "   Press 1 for Checklist" << endl
                  << "   Press 2 for Move"      << endl
                  << "   Press 3 for Quit"      << endl
-                 << " Your choose: ";
+                 << " Your choice: ";
             cin >> task;
             switch (task){
                 case 1:
