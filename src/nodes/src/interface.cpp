@@ -45,16 +45,16 @@ class Interface {
    
       //Possibility of creating a dynamic table that registers whether a robot is available
       string robots_available[num_of_bots][2] = {
-        { "robot1", "notavailable"},
-        { "robot2", "available"   }
+        { "Robot_1", "notavailable"},
+        { "Robot_2", "available"   }
       };
 
       bool available = false;
 
       do {
-        cout << "Which robot do you want to do the task with? List of current robots: \n";
+        cout << endl << " Which robot do you want to do the task with? List of current robots: \n";
         for (int i = 0; i < num_of_bots; i++) {
-          cout << "'" << robots_available[i][0] << "' \n";
+          cout << "  " << robots_available[i][0] << " \n";
         }
 
         cin >> robot_choice;
@@ -62,10 +62,10 @@ class Interface {
         for (int i(0); i < num_of_bots; i++) {
           if (robots_available[i][0] == robot_choice) {
             if (robots_available[i][1] == "notavailable") {
-              cout << "Sorry, '" << robot_choice << "' is not available at this time." << endl;
+              cout << endl << " Sorry, '" << robot_choice << "' is not available at this time." << endl;
               break;
             }else {
-              cout << "You have chosen '" << robot_choice << "'." << endl;
+              cout << " You have chosen '" << robot_choice << "'." << endl;
               available = true;
               break;
             }
@@ -93,16 +93,16 @@ class Interface {
     }
 
     void _databaseInterface (int& databaseOption) {
-        cout << "Which product would you like to pick?" << endl
-             << "  Carlsberg---> 1" << endl
-             << "  Tuborg------> 2" << endl
-             << "  NewCastle---> 3" << endl
-             << "  Guinness----> 4" << endl
-             << "  Pepsi-------> 5" << endl
-             << "  Coca-Cola---> 6" << endl
-             << "  Fanta-------> 7" << endl
-             << "  Sprite------> 8" << endl
-             << "Press the number for choosing an option: ";
+        cout << " Which product would you like to pick?" << endl
+             << "   Carlsberg---> 1" << endl
+             << "   Tuborg------> 2" << endl
+             << "   NewCastle---> 3" << endl
+             << "   Guinness----> 4" << endl
+             << "   Pepsi-------> 5" << endl
+             << "   Coca-Cola---> 6" << endl
+             << "   Fanta-------> 7" << endl
+             << "   Sprite------> 8" << endl
+             << " Press the number for choosing an option: ";
         cin >> databaseOption;
     }
 
@@ -120,28 +120,29 @@ class Interface {
         int choice = 0;
         //dynamic stuff lata
 
-        cout << "Press 1 for receiving" "("     << receivingx      << ", " << receivingy    << ", " << receivingz    << ", " << receivingw << ")" << endl
-             << "Press 2 for shipping" "("  << shippingx   << ", " << shippingy << ", " << shippingz << ", " << shippingw << ")" << endl
-             << "Press 3 for database" << endl
-             << "Press 4 for dynamic point" << endl;
+        cout << endl
+             << "  Press 1 for Receiving" "(" << receivingx  << ", " << receivingy << ", " << receivingz << ", " << receivingw << ")" << endl
+             << "  Press 2 for Shipping" "("  << shippingx   << ", " << shippingy  << ", " << shippingz  << ", " << shippingw << ")" << endl
+             << "  Press 3 for Database"      << endl
+             << "  Press 4 for Dynamic Point" << endl;
         geometry_msgs::Point point_msg;
         cin >> choice;        
 
         switch(choice){
               case 1:
                 _publishQuaternion (receivingx, receivingy, receivingz, receivingw, quat_Publisher);
-                cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-              break;
+                cout << endl << " The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
+                break;
               case 2:
                 _publishQuaternion (shippingx, shippingy, shippingz, shippingw, quat_Publisher);
-                cout << "The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
-              break;
+                cout << endl << " The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
+                break;
               case 3:
                 int databaseOption;
                 _databaseInterface (databaseOption);
-                cout << "You chose: " << databaseOption << endl;
+                cout << endl << " You chose: " << databaseOption << endl;
                 _orderProcessing (databaseOption, quat_Publisher);
-              break;
+                break;
               case 4:
                 // Making a subscription to the rviz coordinate topic "clicked point"
                 click_sub = n.subscribe("clicked_point", 100, &Interface::_rvizClick, this);                   
@@ -156,12 +157,12 @@ class Interface {
                 point_msg.y = y_cor;
                 coord_pub.publish(point_msg); 
                 ros::spinOnce();
-              break;
+                break;
 
               default:
-                cout << "Sorry, I didn't understand that. Please insert a new location command:" << endl;
+                cout << " Sorry, I didn't understand that. Please insert a new location command:" << endl;
                 cin >> choice;
-              break;
+                break;
           } 
             // Publishing coordinates to topic
             
@@ -225,11 +226,11 @@ class Interface {
         float wval;
         _readFunc(xval, yval, zval, wval, order);
         _publishQuaternion(xval, yval, zval, wval, quat_Publisher);
-        cout << "THE COORDINATES ARE" << endl
-             << " 1st coord " << xval << " " << endl
-             << " 2nd coord " << yval << " " << endl
-             << " 3rd coord " << zval << " " << endl
-             << " 4th coord " << wval << " " << endl;
+        cout << endl << " THE COORDINATES ARE" << endl
+             << "  1st coord " << xval << " " << endl
+             << "  2nd coord " << yval << " " << endl
+             << "  3rd coord " << zval << " " << endl
+             << "  4th coord " << wval << " " << endl;
     }
 
     string _getFile (std::ifstream& File) {
@@ -243,7 +244,7 @@ class Interface {
         }
             return Lines;
         }else {
-            return "ERROR File does not exist.";
+            return "\n ERROR File does not exist.";
         }
     }
 
@@ -259,7 +260,7 @@ class Interface {
             switch (task){
                 case 1:
                     _chooseRobot(robot_choice);
-                    cout << "The checklist command is being sent to '" << robot_choice << "'.\n";
+                    cout << endl << " The checklist command is being sent to '" << robot_choice << "'.\n";
                     _publishTask (task, task_pub);
                     break;
                 case 2:
@@ -268,10 +269,10 @@ class Interface {
                     _moveInterface (coord_pub, quat_Publisher, n);
                     break;
                 case 3:
-                    cout << "Thanks for helping us with our hard work!" << endl;
+                    cout << endl << " Thanks for helping us with our hard work!" << endl;
                     break;
                 default:
-                    cout << "Sorry, I couldn't understand that, try again!" << endl;
+                    cout << endl << " Sorry, I couldn't understand that, try again!" << endl;
             }
         // Will continue to run the program as long as 3 is not the input for the variable "task"
         }while(task != 3);
@@ -283,7 +284,7 @@ class Interface {
       x_cor = msg->point.x;
       y_cor = msg->point.y;
       z_cor = msg->point.z;
-      ROS_INFO("The picked points from rViz are: %f, %f, %f", x_cor, y_cor, z_cor);
+      ROS_INFO(" The picked points from rViz are: %f, %f, %f", x_cor, y_cor, z_cor);
     }
   public:
     // Class constructor
