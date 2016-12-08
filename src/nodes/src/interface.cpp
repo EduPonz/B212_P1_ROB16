@@ -15,6 +15,7 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+#include <time.h>
 
 using namespace std;
 
@@ -37,42 +38,15 @@ class Interface {
     float shippingz = 0.0;
     float shippingw = 1.0;
 
-    string robot_choice = "";
+    int robot_choice = 0;
 
     //Robot choosing function #sodynamic
-    void _chooseRobot(string& robot_choice) {
-      int num_of_bots = 2;
-   
-      //Possibility of creating a dynamic table that registers whether a robot is available
-      string robots_available[num_of_bots][2] = {
-        { "Robot_1", "notavailable"},
-        { "Robot_2", "available"   }
-      };
+    void _chooseRobot(int &robot_choice) {
+      srand(time(NULL));
+      int i = rand()%9+1;
+      cout << endl << " The robot " << i << " has been assigned for this task." << endl;
 
-      bool available = false;
-
-      do {
-        cout << endl << " Which robot do you want to do the task with? List of current robots: \n";
-        for (int i = 0; i < num_of_bots; i++) {
-          cout << "  " << robots_available[i][0] << " \n";
-        }
-
-        cin >> robot_choice;
-        
-        for (int i(0); i < num_of_bots; i++) {
-          if (robots_available[i][0] == robot_choice) {
-            if (robots_available[i][1] == "notavailable") {
-              cout << endl << " Sorry, '" << robot_choice << "' is not available at this time." << endl;
-              break;
-            }else {
-              cout << " You have chosen '" << robot_choice << "'." << endl;
-              available = true;
-              break;
-            }
-          }
-        }
-      }while(available == false);
-    } 
+    }
 
     void _publishTask (int t, ros::Publisher task_pub) {
         string task;
@@ -92,8 +66,8 @@ class Interface {
         ros::spinOnce(); 
     }
 
-    void _databaseInterface (int& databaseOption) {
-        cout << " Which product would you like to pick?" << endl
+    void _databaseInterface (int &databaseOption) {
+        cout << endl <<" Which product would you like to pick?" << endl
              << "   Carlsberg---> 1" << endl
              << "   Tuborg------> 2" << endl
              << "   NewCastle---> 3" << endl
@@ -102,7 +76,7 @@ class Interface {
              << "   Coca-Cola---> 6" << endl
              << "   Fanta-------> 7" << endl
              << "   Sprite------> 8" << endl
-             << " Press the number for choosing an option: ";
+             << " Your choice: ";
         cin >> databaseOption;
     }
 
@@ -120,27 +94,24 @@ class Interface {
         int choice = 0;
         //dynamic stuff lata
 
-        cout << endl
-             << "  Press 1 for Receiving" "(" << receivingx  << ", " << receivingy << ", " << receivingz << ", " << receivingw << ")" << endl
-             << "  Press 2 for Shipping" "("  << shippingx   << ", " << shippingy  << ", " << shippingz  << ", " << shippingw << ")" << endl
+        cout << endl << " Where do you want the robot to go?" << endl
+             << "  Press 1 for Receiving" " (" << receivingx  << ", " << receivingy << ", " << receivingz << ", " << receivingw << ")" << endl
+             << "  Press 2 for Shipping" " ("  << shippingx   << ", " << shippingy  << ", " << shippingz  << ", " << shippingw << ")" << endl
              << "  Press 3 for Database"      << endl
-             << "  Press 4 for Dynamic Point" << endl;
+             << "  Press 4 for Dynamic Point" << endl << " Your choice: ";
         geometry_msgs::Point point_msg;
         cin >> choice;        
 
         switch(choice){
               case 1:
                 _publishQuaternion (receivingx, receivingy, receivingz, receivingw, quat_Publisher);
-                cout << endl << " The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
                 break;
               case 2:
                 _publishQuaternion (shippingx, shippingy, shippingz, shippingw, quat_Publisher);
-                cout << endl << " The '" << choice << "' coordinates are being sent to '" << robot_choice << "'." << endl;
                 break;
               case 3:
                 int databaseOption;
                 _databaseInterface (databaseOption);
-                cout << endl << " You chose: " << databaseOption << endl;
                 _orderProcessing (databaseOption, quat_Publisher);
                 break;
               case 4:
@@ -226,11 +197,6 @@ class Interface {
         float wval;
         _readFunc(xval, yval, zval, wval, order);
         _publishQuaternion(xval, yval, zval, wval, quat_Publisher);
-        cout << endl << " THE COORDINATES ARE" << endl
-             << "  1st coord " << xval << " " << endl
-             << "  2nd coord " << yval << " " << endl
-             << "  3rd coord " << zval << " " << endl
-             << "  4th coord " << wval << " " << endl;
     }
 
     string _getFile (std::ifstream& File) {
@@ -250,8 +216,8 @@ class Interface {
 
     void _owlBotInterface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
         int task;
-        do { 
-            cout << endl << " Which task do you want to perfom:" << endl
+        do {
+            cout << endl << " Which task do you want to perfom?" << endl
                  << "   Press 1 for Checklist" << endl
                  << "   Press 2 for Move"      << endl
                  << "   Press 3 for Quit"      << endl
@@ -264,9 +230,9 @@ class Interface {
                     _publishTask (task, task_pub);
                     break;
                 case 2:
-                    _chooseRobot(robot_choice);
                     _publishTask (task, task_pub);
                     _moveInterface (coord_pub, quat_Publisher, n);
+                    _chooseRobot(robot_choice);
                     break;
                 case 3:
                     cout << endl << " Thanks for helping us with our hard work!" << endl;
