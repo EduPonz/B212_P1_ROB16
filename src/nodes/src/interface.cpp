@@ -45,7 +45,6 @@ class Interface {
       srand(time(NULL));
       int i = rand()%9+1;
       cout << endl << " The robot " << i << " has been assigned for this task." << endl;
-
     }
 
     void _publishTask (int t, ros::Publisher task_pub) {
@@ -216,6 +215,7 @@ class Interface {
 
     void _owlBotInterface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
         int task;
+        _owlBotFront ();
         do {
             cout << endl << " Which task do you want to perfom?" << endl
                  << "   Press 1 for Checklist" << endl
@@ -244,6 +244,13 @@ class Interface {
         }while(task != 3);
     }
 
+    void _owlBotFront () {
+        ifstream Reader ("ascii.txt");
+        string Art = _getFile (Reader);    
+        cout << Art << std::endl;              
+        Reader.close ();
+    }
+
     // Callback equation for getting rViz coordinates 
     void _rvizClick(const geometry_msgs::PointStamped::ConstPtr& msg) {
   
@@ -259,11 +266,7 @@ class Interface {
       // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
         ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("point_coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
-        ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000);
-        ifstream Reader ("ascii.txt");             //Open file
-        string Art = _getFile (Reader);       //Get file
-        cout << Art << std::endl;               //Print it to the screen
-        Reader.close (); 
+        ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000); 
         _owlBotInterface (coordPublisher, taskPublisher, quatPublisher, n);
     };
 

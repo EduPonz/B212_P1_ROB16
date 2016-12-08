@@ -17,7 +17,7 @@
 
 using namespace std;
 
-ofstream myfile ("Data_Saved.txt");
+ofstream myfile ("data_saved.txt");
 
 class LogNode{
     private: 
@@ -60,8 +60,8 @@ class LogNode{
 
 //This function prints the text "The 'the task' operation has been received!" 
 //to a txt.file
-      void _saveTaskFunc(string x, ofstream &myfile){
-        myfile << "The " << x << " operation has been received! " << endl;
+      void _saveTaskFunc(string x, ofstream &myfile) {
+        myfile << "The '" << x << "' operation has been received! " << endl;
       }
 
 //This function receives the "task" text from the interface and calls on the "_saveTaskFunc"
