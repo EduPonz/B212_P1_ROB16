@@ -92,7 +92,7 @@ class Interface {
         ros::spinOnce(); 
     }
 
-    void _databaseInterface () {
+    void _databaseInterface (int& databaseOption) {
         cout << "Which product would you like to pick?" << endl;
         cout << "  Carlsberg---> 1" << endl;
         cout << "  Tuborg------> 2" << endl;
@@ -103,6 +103,7 @@ class Interface {
         cout << "  Fanta-------> 7" << endl;
         cout << "  Sprite------> 8" << endl;
         cout << "Press the number for choosing an option: ";
+        cin >> databaseOption;
     }
 
     void _publishQuaternion (float x, float y, float z, float w, ros::Publisher quat_Publisher){
@@ -143,8 +144,7 @@ class Interface {
             }else if (choice == "Database" || choice == "database") {
 
                 int databaseOption;
-                _databaseInterface ();
-                cin >> databaseOption;
+                _databaseInterface (databaseOption);
                 cout << "You chose: " << databaseOption << endl;
                 _orderProcessing (databaseOption, quat_Publisher);
                 choice = "";
@@ -271,10 +271,12 @@ class Interface {
                     _chooseRobot(robot_choice);
                     cout << "The checklist command is being sent to '" << robot_choice << "'.\n";
                     _publishTask (task, task_pub);
+                    break;
                 case 2:
                     _chooseRobot(robot_choice);
                     _publishTask (task, task_pub);
                     _moveInterface (coord_pub, quat_Publisher, n);
+                    break;
                 case 3:
                     cout << "Thanks for helping us with our hard work!" << endl;
                     break;
