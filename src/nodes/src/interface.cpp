@@ -144,7 +144,7 @@ class Interface {
               break;
               case 4:
                 // Making a subscription to the rviz coordinate topic "clicked point"
-                click_sub = n.subscribe("clicked_point", 100, &Interface::_rviz_click, this);                   
+                click_sub = n.subscribe("clicked_point", 100, &Interface::_rvizClick, this);                   
               
                 // Will continue to initialize the callback function until a set of coordinates
                 // has been published from rviz. i.e. the value of x coordinate changes.
@@ -203,7 +203,7 @@ class Interface {
         return n;
     }
 
-    void _readfunc(float &xval, float &yval, float &zval, float &wval, int lineNumb) {
+    void _readFunc(float &xval, float &yval, float &zval, float &wval, int lineNumb) {
 
         ifstream file("data.txt");
         string line;
@@ -223,7 +223,7 @@ class Interface {
         float yval;
         float zval;
         float wval;
-        _readfunc(xval, yval, zval, wval, order);
+        _readFunc(xval, yval, zval, wval, order);
         _publishQuaternion(xval, yval, zval, wval, quat_Publisher);
         cout << "THE COORDINATES ARE" << endl
              << " 1st coord " << xval << " " << endl
@@ -232,7 +232,7 @@ class Interface {
              << " 4th coord " << wval << " " << endl;
     }
 
-    string _get_file (std::ifstream& File) {
+    string _getFile (std::ifstream& File) {
         string Lines = "";       
         if (File.good ()) {
         while (File.good ()) {
@@ -247,7 +247,7 @@ class Interface {
         }
     }
 
-    void _owlBot_interface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
+    void _owlBotInterface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
         int task;
         do { 
             cout << endl << " Which task do you want to perfom:" << endl
@@ -278,7 +278,7 @@ class Interface {
     }
 
     // Callback equation for getting rViz coordinates 
-    void _rviz_click(const geometry_msgs::PointStamped::ConstPtr& msg) {
+    void _rvizClick(const geometry_msgs::PointStamped::ConstPtr& msg) {
   
       x_cor = msg->point.x;
       y_cor = msg->point.y;
@@ -294,10 +294,10 @@ class Interface {
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
         ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000);
         ifstream Reader ("ascii.txt");             //Open file
-        string Art = _get_file (Reader);       //Get file
+        string Art = _getFile (Reader);       //Get file
         cout << Art << std::endl;               //Print it to the screen
         Reader.close (); 
-        _owlBot_interface (coordPublisher, taskPublisher, quatPublisher, n);
+        _owlBotInterface (coordPublisher, taskPublisher, quatPublisher, n);
     };
 
     // Call Destructor
