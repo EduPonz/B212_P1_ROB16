@@ -260,6 +260,11 @@ class Interface {
       z_cor = msg->point.z;
       ROS_INFO(" The picked points from rViz are: %f, %f, %f", x_cor, y_cor, z_cor);
     }
+
+    void _cheklistFunc(const std_msgs::String::ConstPtr& status_msg) {
+        while (status_msg.data != "Step 3 has been completed, the base moved 1 meter forward")
+    }
+
   public:
     // Class constructor
     Interface(ros::NodeHandle n) {
@@ -267,7 +272,8 @@ class Interface {
       // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
         ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("point_coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
-        ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000); 
+        ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000);
+        ros::Subscriber check_sub = n.subscribe("checklist_status", 100, &Interface::_cheklistFunc, this); 
         _owlBotInterface (coordPublisher, taskPublisher, quatPublisher, n);
     };
 

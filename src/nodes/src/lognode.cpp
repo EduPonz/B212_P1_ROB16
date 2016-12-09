@@ -115,7 +115,10 @@ class LogNode{
         ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &LogNode::_coordFunc, this);
         ros::Subscriber quat_sub = n.subscribe("quat_coordinates", 100, &LogNode::_quatFunc, this);
         ros::Subscriber task_sub = n.subscribe("task", 100, &LogNode::_taskFunc, this);
-        ros::Subscriber status_sub = n.subscribe("status", 100, &LogNode::_statusFunc, this);
+        ros::Subscriber status_sub = n.subscribe("fork_status", 100, &LogNode::_statusFunc, this);
+        ros::Subscriber move_status = n.subscribe("success_fail", 100, &LogNode::_statusFunc, this);
+        ros::Subscriber check_pub = n.subscribe("check_status", 100, &LogNode::_statusFunc, this);
+        ros::Subscriber checklist_status_pub = n.subscribe("checklist_status", 100, &LogNode::_statusFunc, this);
         ros::spin();
       };
       ~LogNode() {};

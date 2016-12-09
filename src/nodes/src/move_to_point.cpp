@@ -68,23 +68,23 @@ class MoveToPoint {
 			ycoord = msg->y;
 		}
 
-		void _quatFunc(const geometry_msgs::Quaternion::ConstPtr& msg) {
+		void _quatFunc(const geometry_msgs::Quaternion::ConstPtr& quaternion_msg) {
 			// Assigning the values pointed to to the global variables so they can be used in the main function.
-			xcoord = msg->x;
-			ycoord = msg->y;
-			zcoord = msg->z;
-			wcoord = msg->w;
+			xcoord = quaternion_msg->x;
+			ycoord = quaternion_msg->y;
+			zcoord = quaternion_msg->z;
+			wcoord = quaternion_msg->w;
 		}
 	public:
 		MoveToPoint(ros::NodeHandle n) {
-		ros::Publisher status_pub = n.advertise<std_msgs::String>("success_fail", 1000);
-		ros::Subscriber quat_sub = n.subscribe("quat_coordinates", 100, &MoveToPoint::_quatFunc, this);
-		ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &MoveToPoint::_coordFunc, this);
-		while((xcoord == 0) && (ycoord == 0) && (zcoord == 0) && (wcoord == 0)) {
-        	ros::spinOnce(); 
-    	}
-		// Call to function moveToGoal (see below)
-		_moveToGoal(xcoord, ycoord, zcoord, wcoord, status_pub);
+			ros::Publisher status_pub = n.advertise<std_msgs::String>("success_fail", 1000);
+			ros::Subscriber quat_sub = n.subscribe("quat_coordinates", 100, &MoveToPoint::_quatFunc, this);
+			ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &MoveToPoint::_coordFunc, this);
+			while((xcoord == 0) && (ycoord == 0) && (zcoord == 0) && (wcoord == 0)) {
+    	    	ros::spinOnce(); 
+    		}
+			// Call to function moveToGoal (see below)
+			_moveToGoal(xcoord, ycoord, zcoord, wcoord, status_pub);
 		};
 		~MoveToPoint() {};
 };
