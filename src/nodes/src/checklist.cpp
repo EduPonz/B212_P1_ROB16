@@ -49,7 +49,7 @@ class Checklist
       string s;
 
       while(!ac.waitForServer(ros::Duration(5.0))) {
-        s = "Waiting for the move_base action server to come up"
+        s = "Waiting for the move_base action server to come up";
         _publishStatus(s, check_pub);
       }
 
@@ -81,7 +81,7 @@ class Checklist
       string s;
 
       while(!ac.waitForServer(ros::Duration(5.0))) {
-        s = "Waiting for the move_base action server to come up"
+        s = "Waiting for the move_base action server to come up";
         _publishStatus(s, check_pub);
       }
 
@@ -113,7 +113,7 @@ class Checklist
       string s;
 
       while(!ac.waitForServer(ros::Duration(5.0))) {
-        s = "Waiting for the move_base action server to come up"
+        s = "Waiting for the move_base action server to come up";
         _publishStatus(s, check_pub);
       }
 

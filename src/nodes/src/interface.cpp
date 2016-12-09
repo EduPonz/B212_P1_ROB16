@@ -226,7 +226,6 @@ class Interface {
             switch (task){
                 case 1:
                     _chooseRobot(robot_choice);
-                    cout << endl << " The checklist command is being sent to '" << robot_choice << "'.\n";
                     _publishTask (task, task_pub);
                     break;
                 case 2:
@@ -262,11 +261,11 @@ class Interface {
     }
 
     void _moveFunc(const std_msgs::String::ConstPtr& status_msg) {
-        while (status_msg.data != "")
+        while (status_msg->data != ""){}
     }
 
     void _checklistFunc(const std_msgs::String::ConstPtr& status_msg) {
-        while (status_msg.data != "Step 3 has been completed, the base moved 1 meter forward")
+        while (status_msg->data != "Step 3 has been completed, the base moved 1 meter forward"){}
     }
 
   public:
