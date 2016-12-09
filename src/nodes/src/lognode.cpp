@@ -2,8 +2,8 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/PointStamped.h"
-#include "geometry_msgs/Quaternion.h"
-#include "geometry_msgs/QuaternionStamped.h"
+//#include "geometry_msgs/point.h"
+//#include "geometry_msgs/pointStamped.h"
 #include <ros/console.h>
 #include <iostream>
 #include <string.h>
@@ -22,10 +22,9 @@ ofstream myfile ("data_saved.txt");
 class LogNode{
     private: 
 //////Declaring Global variables//////
-      float quatx;
-      float quaty;
-      float quatz;
-      float quatw;
+      float pointx;
+      float pointy;
+      float pointz;
       string message;
 
 ////////////Functions//////////////
@@ -53,9 +52,9 @@ class LogNode{
         cout << endl;
         ROS_INFO("The operation has been received for the coordinates: x: %f y: %f", 
                   point_msg->x, point_msg->y);
-        quatx = point_msg->x;
-        quaty = point_msg->y;
-        _saveCoordFunc(quatx, quaty, myfile);
+        pointx = point_msg->x;
+        pointy = point_msg->y;
+        _saveCoordFunc(pointx, pointy, myfile);
       }
 
 //This function prints the text "The 'the task' operation has been received!" 
@@ -90,30 +89,28 @@ class LogNode{
 
 //This function prints the text "The operation has been received 
 //for the coordinates" and the chosen coordinates to a txt.file
-      void _saveQuatFunc(float x, float y, float z, float w, ofstream &myfile){
+      void _savepointFunc(float x, float y, float z, ofstream &myfile){
         myfile << "The operation has been received for the coordinates: ("
          << _floatToString(x) << ") (" << _floatToString(y)
-         << ") (" << _floatToString(z) << ") (" << _floatToString(w) << ")" << endl;     
+         << ") (" << _floatToString(z) << ") " << endl;     
       }
 
-//This function receives the coordinates from the interface and calls on the "_saveQuatFunc"
+//This function receives the coordinates from the interface and calls on the "_savepointFunc"
 //while printing "The operation has been received for the coordinates: " and the coordinates 
 //in a ros terminal
-      void _quatFunc(const geometry_msgs::Quaternion::ConstPtr& quaternion_msg){
+      void _pointFunc(const geometry_msgs::Point::ConstPtr& point_msg){
         cout << endl;
-        ROS_INFO("The operation has been received for the coordinates: x: %f y: %f z: %f w: %f",
-                  quaternion_msg->x, quaternion_msg->y, quaternion_msg->z, quaternion_msg->w);
-        quatx = quaternion_msg->x; 
-        quaty = quaternion_msg->y;
-        quatz = quaternion_msg->z;
-        quatw = quaternion_msg->w;
-        _saveQuatFunc(quatx, quaty, quatz, quatw, myfile);
+        ROS_INFO("The operation has been received for the coordinates: x: %f y: %f with rotation: %f degrees",
+                  point_msg->x, point_msg->y, point_msg->z);
+        pointx = point_msg->x; 
+        pointy = point_msg->y;
+        pointz = point_msg->z;
+        _savepointFunc(pointx, pointy, pointz, myfile);
       }
     public:
 
       LogNode(ros::NodeHandle n){
-        ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &LogNode::_coordFunc, this);
-        ros::Subscriber quat_sub = n.subscribe("quat_coordinates", 100, &LogNode::_quatFunc, this);
+        ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &LogNode::_pointFunc, this);
         ros::Subscriber task_sub = n.subscribe("task", 100, &LogNode::_taskFunc, this);
         ros::Subscriber status_sub = n.subscribe("fork_status", 100, &LogNode::_statusFunc, this);
         ros::Subscriber move_status = n.subscribe("success_fail", 100, &LogNode::_statusFunc, this);

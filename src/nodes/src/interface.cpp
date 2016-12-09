@@ -2,8 +2,8 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/PointStamped.h"
-#include "geometry_msgs/Quaternion.h"
-#include "geometry_msgs/QuaternionStamped.h"
+//#include "geometry_msgs/Quaternion.h"
+//#include "geometry_msgs/QuaternionStamped.h"
 #include <ros/console.h>
 #include <iostream>
 #include <string.h>
@@ -30,13 +30,11 @@ class Interface {
     // receiving coordinates
     float receivingx = -4.43;
     float receivingy = -1.1;
-    float receivingz = 0.0;
-    float receivingw = 1.0;
+    float receivingd = 45;
     // Shipping coordinates
     float shippingx = 0.621;
     float shippingy = -1.86;
-    float shippingz = 0.0;
-    float shippingw = 1.0;
+    float shippingd = 60;
 
     int robot_choice = 0;
 
@@ -81,23 +79,23 @@ class Interface {
         cin >> databaseOption;
     }
 
-    void _publishQuaternion (float x, float y, float z, float w, ros::Publisher quat_Publisher){
-        geometry_msgs::Quaternion quaternion_msg;
-        quaternion_msg.x = x;
-        quaternion_msg.y = y;
-        quaternion_msg.z = z;
-        quaternion_msg.w = w;
-        quat_Publisher.publish(quaternion_msg); 
+    void _publishPoint (float x, float y, float z, ros::Publisher coordPublisher){
+        geometry_msgs::Point point_msg;
+        point_msg.x = x;
+        point_msg.y = y;
+        point_msg.z = z;
+        //quaternion_msg.w = w;
+        coordPublisher.publish(point_msg); 
         ros::spinOnce();
     }
 
-    void _moveInterface (ros::Publisher coord_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
+    void _moveInterface (ros::Publisher coord_pub, ros::NodeHandle n) {
         int choice = 0;
         //dynamic stuff lata
 
         cout << endl << " Where do you want the robot to go?" << endl
-             << "  Press 1 for Receiving" " (" << receivingx  << ", " << receivingy << ", " << receivingz << ", " << receivingw << ")" << endl
-             << "  Press 2 for Shipping" " ("  << shippingx   << ", " << shippingy  << ", " << shippingz  << ", " << shippingw << ")" << endl
+             << "  Press 1 for Receiving" " (" << receivingx  << ", " << receivingy << ", " << receivingd << ")" << endl
+             << "  Press 2 for Shipping" " ("  << shippingx   << ", " << shippingy  << ", " << shippingd << ")" << endl
              << "  Press 3 for Database"      << endl
              << "  Press 4 for Dynamic Point" << endl << " Your choice: ";
         geometry_msgs::Point point_msg;
@@ -105,15 +103,15 @@ class Interface {
 
         switch(choice){
               case 1:
-                _publishQuaternion (receivingx, receivingy, receivingz, receivingw, quat_Publisher);
+                _publishPoint (receivingx, receivingy, receivingd, coord_pub);
                 break;
               case 2:
-                _publishQuaternion (shippingx, shippingy, shippingz, shippingw, quat_Publisher);
+                _publishPoint (shippingx, shippingy, shippingd, coord_pub);
                 break;
               case 3:
                 int databaseOption;
                 _databaseInterface (databaseOption);
-                _orderProcessing (databaseOption, quat_Publisher);
+                _orderProcessing (databaseOption, coord_pub);
                 break;
               case 4:
                 // Making a subscription to the rviz coordinate topic "clicked point"
@@ -176,7 +174,7 @@ class Interface {
         return n;
     }
 
-    void _readFunc(float &xval, float &yval, float &zval, float &wval, int lineNumb) {
+    void _readFunc(float &xval, float &yval, float &zval, int lineNumb) {
 
         ifstream file("data.txt");
         string line;
@@ -187,17 +185,17 @@ class Interface {
         xval = _numberBuild(file);
         yval = _numberBuild(file);
         zval = _numberBuild(file);
-        wval = _numberBuild(file);
+        //wval = _numberBuild(file);
         file.close();
     }
 
-    void _orderProcessing (int order, ros::Publisher quat_Publisher) {
+    void _orderProcessing (int order, ros::Publisher coordPublisher) {
         float xval;
         float yval;
         float zval;
-        float wval;
-        _readFunc(xval, yval, zval, wval, order);
-        _publishQuaternion(xval, yval, zval, wval, quat_Publisher);
+        //float wval;
+        _readFunc(xval, yval, zval, order);
+        _publishPoint(xval, yval, zval, coordPublisher);
     }
 
     string _getFile (std::ifstream& File) {
@@ -215,7 +213,7 @@ class Interface {
         }
     }
 
-    void _owlBotInterface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
+    void _owlBotInterface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::NodeHandle n) {
         int task;
         _owlBotFront();
         do {
@@ -232,7 +230,7 @@ class Interface {
                     break;
                 case 2:
                     _publishTask (task, task_pub);
-                    _moveInterface (coord_pub, quat_Publisher, n);
+                    _moveInterface (coord_pub, n);
                     _chooseRobot(robot_choice);
                     break;
                 case 3:
@@ -270,7 +268,7 @@ class Interface {
     void _checklistFunc(const std_msgs::String::ConstPtr& status_msg) {
         while (status_msg->data != "Step 3 has been completed, the base moved 1 meter forward"){}
     }
-
+    
   public:
     // Class constructor
     Interface(ros::NodeHandle n) {
@@ -278,10 +276,9 @@ class Interface {
       // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
         ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("point_coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
-        ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000);
         ros::Subscriber check_sub = n.subscribe("checklist_status", 100, &Interface::_checklistFunc, this);
         ros::Subscriber move_sub = n.subscribe("success_fail", 100, &Interface::_moveFunc, this); 
-        _owlBotInterface (coordPublisher, taskPublisher, quatPublisher, n);
+        _owlBotInterface (coordPublisher, taskPublisher, n);
     };
 
     // Call Destructor
