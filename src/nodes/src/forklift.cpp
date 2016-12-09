@@ -46,7 +46,7 @@ class Forklift {
 
 		void _runScript(ros::Publisher fork_status_pub){
 
-			system("forklift.sh");
+			system("./forklift.sh");
 			cout << "Ive run the script!" << endl;
 
 			ros::Duration ten_seconds(10.0);			
