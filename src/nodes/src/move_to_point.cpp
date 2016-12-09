@@ -19,15 +19,15 @@ class MoveToPoint {
 		void _moveToGoal(float xGoal, float yGoal, float zGoal, float wGoal, ros::Publisher status_pub) { 
 			// Define a client to send goal requests to the move_base server through a SimpleActionClient
 			actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
-			std_msgs::String msg;
+			std_msgs::String move_status_msg;
 	    	std::stringstream action_ss;
     		std::stringstream status_ss;
 
 			// Wait for the action server to come up
-			while(!ac.waitForServer(ros::Duration(5.0))){
+			while(!ac.waitForServer(ros::Duration(5.0))) {
 				action_ss << "Waiting for the move_base action server to come up";
-				msg.data = action_ss.str();
-				status_pub.publish(msg);
+				move_status_msg.data = action_ss.str();
+				status_pub.publish(move_status_msg);
 				ros::spinOnce();
 			}
 
@@ -53,12 +53,12 @@ class MoveToPoint {
 			// If else statement for whether or not the robot succeeded in motion operation.
 			if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
       			status_ss << "The robot reached the destination";
-      			msg.data = status_ss.str(); 
+      			move_status_msg.data = status_ss.str(); 
 			}else {
 		  		status_ss << "The robot failed to reach the destination";
- 			    msg.data = status_ss.str();
+ 			    move_status_msg.data = status_ss.str();
 			}
-			status_pub.publish(msg);
+			status_pub.publish(move_status_msg);
 			ros::spinOnce();
 		}
 

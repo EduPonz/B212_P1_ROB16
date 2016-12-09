@@ -261,7 +261,11 @@ class Interface {
       ROS_INFO(" The picked points from rViz are: %f, %f, %f", x_cor, y_cor, z_cor);
     }
 
-    void _cheklistFunc(const std_msgs::String::ConstPtr& status_msg) {
+    void _moveFunc(const std_msgs::String::ConstPtr& status_msg) {
+        while (status_msg.data != "")
+    }
+
+    void _checklistFunc(const std_msgs::String::ConstPtr& status_msg) {
         while (status_msg.data != "Step 3 has been completed, the base moved 1 meter forward")
     }
 
@@ -273,7 +277,8 @@ class Interface {
         ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("point_coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
         ros::Publisher quatPublisher = n.advertise<geometry_msgs::Quaternion>("quat_coordinates", 1000);
-        ros::Subscriber check_sub = n.subscribe("checklist_status", 100, &Interface::_cheklistFunc, this); 
+        ros::Subscriber check_sub = n.subscribe("checklist_status", 100, &Interface::_checklistFunc, this);
+        ros::Subscriber move_sub = n.subscribe("success_fail", 100, &Interface::_moveFunc, this); 
         _owlBotInterface (coordPublisher, taskPublisher, quatPublisher, n);
     };
 
