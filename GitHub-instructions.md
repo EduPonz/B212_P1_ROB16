@@ -26,5 +26,11 @@ Commit & Push
 Pull
 	1-Terminal--> git pull
 
+	If pull doesn't work becuase of unresolved conflicts, you can hard reset.
+	http://stackoverflow.com/questions/1125968/how-to-force-git-pull-to-overwrite-local-files
+		git fetch --all
+		git reset --hard origin/master
+		WARNING - this forces your local repository to become overwritten by the remote master that you just fetched.
+
 Git Commands and KeyWords in detail
 	https://github.com/GarageGames/Torque2D/wiki/Cloning-the-repo-and-working-with-Git
