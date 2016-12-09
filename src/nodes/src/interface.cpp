@@ -215,7 +215,7 @@ class Interface {
 
     void _owlBotInterface (ros::Publisher coord_pub, ros::Publisher task_pub, ros::Publisher quat_Publisher, ros::NodeHandle n) {
         int task;
-        _owlBotFront ();
+        _owlBotFront();
         do {
             cout << endl << " Which task do you want to perfom?" << endl
                  << "   Press 1 for Checklist" << endl
@@ -236,6 +236,7 @@ class Interface {
                     break;
                 case 3:
                     cout << endl << " Thanks for helping us with our hard work!" << endl;
+                    _owlBotFront();
                     break;
                 default:
                     cout << endl << " Sorry, I couldn't understand that, try again!" << endl;
