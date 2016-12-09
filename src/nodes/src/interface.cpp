@@ -52,8 +52,10 @@ class Interface {
         switch (t){
             case 1:
                 task = "Checklist";
+                break;
             case 2:
                 task = "Move";
+                break;
         }
 
         std_msgs::String task_msg;
@@ -239,6 +241,7 @@ class Interface {
                     break;
                 default:
                     cout << endl << " Sorry, I couldn't understand that, try again!" << endl;
+                    break;
             }
         // Will continue to run the program as long as 3 is not the input for the variable "task"
         }while(task != 3);
