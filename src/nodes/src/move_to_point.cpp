@@ -24,7 +24,7 @@ class MoveToPoint {
     		std::stringstream status_ss;
 
 			// Wait for the action server to come up
-			while(!ac.waitForServer(ros::Duration(5.0))) {
+			while(usleep(1*pow(10, 6))) {
 				action_ss << "Waiting for the move_base action server to come up";
 				move_status_msg.data = action_ss.str();
 				status_pub.publish(move_status_msg);
