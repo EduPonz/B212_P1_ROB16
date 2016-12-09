@@ -25,15 +25,11 @@ class MoveToPoint {
     		std::stringstream status_ss;
 
 			// Wait for the action server to come up
-<<<<<<< HEAD
-=======
-			while(usleep(1*pow(10, 6))) {
->>>>>>> c8e3e2cb7a578ff4cd87be46912e149c4d37e0c5
-				action_ss << "Waiting for the move_base action server to come up";
-				move_status_msg.data = action_ss.str();
-				status_pub.publish(move_status_msg);
-				ros::spinOnce();
-				usleep(1*pow(10, 6));
+			action_ss << "Waiting for the move_base action server to come up";
+			move_status_msg.data = action_ss.str();
+			status_pub.publish(move_status_msg);
+			ros::spinOnce();
+			usleep(3*pow(10, 6));
 
 			// Declaring varible 'goal' as type move_bas_msgs::MoveBaseGoal
 			move_base_msgs::MoveBaseGoal goal;
@@ -92,14 +88,8 @@ int main(int argc, char** argv) {
 
 	ros::init(argc, argv, "move_to_point"); 
 	ros::NodeHandle myNodeHandle;
-<<<<<<< HEAD
-  while (ros::ok()){
-        MoveToPoint myMoveToPoint (myNodeHandle);
-  }
-=======
 	while (ros::ok()){
 		MoveToPoint myMoveToPoint (myNodeHandle);
 	}
->>>>>>> c8e3e2cb7a578ff4cd87be46912e149c4d37e0c5
 	return 0;
 }
