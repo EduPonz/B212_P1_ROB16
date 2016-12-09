@@ -264,7 +264,7 @@ class Interface {
     }
 
     void _moveFunc(const std_msgs::String::ConstPtr& status_msg) {
-        while (status_msg->data != ""){}
+        while (status_msg->data != "The robot reached the destination" || status_msg->data != "The robot failed to reach the destination"){}
     }
 
     void _checklistFunc(const std_msgs::String::ConstPtr& status_msg) {
