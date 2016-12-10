@@ -9,6 +9,8 @@
 #include <string>
 #include <math.h>
 
+using namespace std;
+
 class MoveToPoint {
 	private:
 		float xGoal = 0;
@@ -16,9 +18,11 @@ class MoveToPoint {
 		float zGoal = 0;
 		float wGoal = 0;
 		float thetaRad = 0;
+		ros::Publisher status_pub;
 
 		void _moveToGoal(float xGoal, float yGoal, float zGoal, float wGoal, ros::Publisher status_pub) { 
 			// Define a client to send goal requests to the move_base server through a SimpleActionClient
+			std::cout << "I am _moveToGoal" << std::endl;
 			actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
 			std_msgs::String move_status_msg;
 	    	std::stringstream action_ss;
@@ -29,7 +33,7 @@ class MoveToPoint {
 			move_status_msg.data = action_ss.str();
 			status_pub.publish(move_status_msg);
 			ros::spinOnce();
-			usleep(3*pow(10, 6));
+			//usleep(3*pow(10, 6));
 
 			// Declaring varible 'goal' as type move_bas_msgs::MoveBaseGoal
 			move_base_msgs::MoveBaseGoal goal;
@@ -48,48 +52,44 @@ class MoveToPoint {
 			goal.target_pose.pose.orientation.w = wGoal;
 
 			ac.sendGoal(goal);
-			ac.waitForResult();
+			// ac.waitForResult();
 
-			// If else statement for whether or not the robot succeeded in motion operation.
-			if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-      			status_ss << "The robot reached the destination";
-      			move_status_msg.data = status_ss.str(); 
-			}else {
-		  		status_ss << "The robot failed to reach the destination";
- 			    move_status_msg.data = status_ss.str();
-			}
-			status_pub.publish(move_status_msg);
-			ros::spinOnce();
+			// // If else statement for whether or not the robot succeeded in motion operation.
+			// if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+   //    			status_ss << "The robot reached the destination";
+   //    			move_status_msg.data = status_ss.str(); 
+			// }else {
+		 //  		status_ss << "The robot failed to reach the destination";
+ 		// 	    move_status_msg.data = status_ss.str();
+			// }
+			// status_pub.publish(move_status_msg);
+			// ros::spinOnce();
+			std::cout << "Done with moving" << std::endl;
 		}
 
 		void _coordToQuat(const geometry_msgs::Point::ConstPtr& msg){
+			cout << endl << "I am here" << endl;
 	        thetaRad = (msg->z / 180) * M_PI;
 	        xGoal = msg->x;
 	        yGoal = msg->y;
 	        zGoal = sin(thetaRad / 2);
 	        wGoal = cos(thetaRad / 2);
-
+	        cout << "I am going to: (" << xGoal << ", " << yGoal << ", " << zGoal << ", " << wGoal << ")" << endl;
+			_moveToGoal(xGoal, yGoal, zGoal, wGoal, status_pub);
     }
 
 	public:
 		MoveToPoint(ros::NodeHandle n) {
-			ros::Publisher status_pub = n.advertise<std_msgs::String>("success_fail", 1000);
+			status_pub = n.advertise<std_msgs::String>("success_fail", 1000);
 			ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &MoveToPoint::_coordToQuat, this);
-			while((xGoal == 0) && (yGoal == 0) && (zGoal == 0) && (wGoal == 0)) {
-    	    	ros::spinOnce(); 
-    		}
-			// Call to function moveToGoal (see below)
-			_moveToGoal(xGoal, yGoal, zGoal, wGoal, status_pub);
+			ros::spin();
 		};
 		~MoveToPoint() {};
 };
 
 int main(int argc, char** argv) {
-
 	ros::init(argc, argv, "move_to_point"); 
 	ros::NodeHandle myNodeHandle;
-	while (ros::ok()){
-		MoveToPoint myMoveToPoint (myNodeHandle);
-	}
+	MoveToPoint myMoveToPoint (myNodeHandle);
 	return 0;
 }
