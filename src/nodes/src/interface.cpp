@@ -75,6 +75,10 @@ class Interface {
              << "   Coca-Cola---> 6" << endl
              << "   Fanta-------> 7" << endl
              << "   Sprite------> 8" << endl
+             << "   Squash------> 9" << endl
+             << "   Cocio-------> 10" << endl
+             << "   Red Bull----> 11" << endl
+             << "   Nestea------> 12" << endl
              << " Your choice: ";
         cin >> databaseOption;
     }
