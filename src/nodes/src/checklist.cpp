@@ -36,6 +36,7 @@ class Checklist
         _stepOne(check_pub);
         _stepTwo(check_pub);
         _stepThree(check_pub);
+        _stepFour(check_pub);
       }
     }
 
@@ -62,17 +63,22 @@ class Checklist
       goal.target_pose.header.frame_id = "base_link";
       goal.target_pose.header.stamp = ros::Time::now();
 
-      goal.target_pose.pose.position.x = 1.0;
+      goal.target_pose.pose.position.x = 0.0;
+      goal.target_pose.pose.position.y = 0.0;
+      goal.target_pose.pose.position.z = 0.0;
+
+      goal.target_pose.pose.orientation.x = 0.0;
+      goal.target_pose.pose.orientation.y = 0.0;
+      goal.target_pose.pose.orientation.z = 0.0;
       goal.target_pose.pose.orientation.w = 1.0;
 
-      s = "Sending goal";
+      s = "Sending checklist goal";
       _publishStatus(s, check_pub);
       ac.sendGoal(goal);
-
       ac.waitForResult();
 
       if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-        s = "Step 1 has been completed, the base moved 1 meter forward";
+        s = "Step 1 has been completed. Arrived to origin.";
         _publishStatus(s, check_pub);
       }else {
         s = "Step 1 failed";
@@ -95,9 +101,15 @@ class Checklist
       goal.target_pose.header.stamp = ros::Time::now();
 
       goal.target_pose.pose.position.x = 1.0;
-      goal.target_pose.pose.orientation.w = 0.0;
+      goal.target_pose.pose.position.y = 0.0;
+      goal.target_pose.pose.position.z = 0.0;
 
-      s = "Sending goal";
+      goal.target_pose.pose.orientation.x = 0.0;
+      goal.target_pose.pose.orientation.y = 0.0;
+      goal.target_pose.pose.orientation.z = 0.0;
+      goal.target_pose.pose.orientation.w = 1.0;
+
+      s = "Sending checklist goal";
       _publishStatus(s, check_pub);
       ac.sendGoal(goal);
 
@@ -127,19 +139,62 @@ class Checklist
       goal.target_pose.header.stamp = ros::Time::now();
 
       goal.target_pose.pose.position.x = 0.0;
-      goal.target_pose.pose.orientation.w = 0.0;
+      goal.target_pose.pose.position.y = 0.0;
+      goal.target_pose.pose.position.z = 0.0;
 
-      s = "Sending goal";
+      goal.target_pose.pose.orientation.x = 0.0;
+      goal.target_pose.pose.orientation.y = 0.0;
+      goal.target_pose.pose.orientation.z = 0.0;
+      goal.target_pose.pose.orientation.w = 1.0;
+
+      s = "Sending checklist goal";
       _publishStatus(s, check_pub);
       ac.sendGoal(goal);
 
       ac.waitForResult();
 
       if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-        s = "Step 3 has been completed, the base moved 1 meter forward";
+        s = "Step 3 has been completed, the base moved 1 meter backwards";
         _publishStatus(s, check_pub);
       }else {
         s = "Step 3 failed";
+        _publishStatus(s, check_pub);
+      }
+    }
+
+    void _stepFour(ros::Publisher check_pub) {
+      MoveBaseClient ac("move_base", true);
+      string s;
+
+      while(!ac.waitForServer(ros::Duration(5.0))) {
+        s = "Waiting for the move_base action server to come up";
+        _publishStatus(s, check_pub);
+      }
+
+      move_base_msgs::MoveBaseGoal goal;
+      goal.target_pose.header.frame_id = "base_link";
+      goal.target_pose.header.stamp = ros::Time::now();
+
+      goal.target_pose.pose.position.x = 0.0;
+      goal.target_pose.pose.position.y = 0.0;
+      goal.target_pose.pose.position.z = 0.0;
+
+      goal.target_pose.pose.orientation.x = 0.0;
+      goal.target_pose.pose.orientation.y = 0.0;
+      goal.target_pose.pose.orientation.z = 1.0;
+      goal.target_pose.pose.orientation.w = 0.0;
+
+      s = "Sending checklist goal";
+      _publishStatus(s, check_pub);
+      ac.sendGoal(goal);
+
+      ac.waitForResult();
+
+      if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+        s = "Step 4 has been completed, the base turned 180 degrees";
+        _publishStatus(s, check_pub);
+      }else {
+        s = "Step 4 failed";
         _publishStatus(s, check_pub);
       }
     }
@@ -158,5 +213,4 @@ int main(int argc, char** argv){
   ros::NodeHandle myNodeHandle;
   Checklist myChecklist  (myNodeHandle);
   return 0;
-  
 }
