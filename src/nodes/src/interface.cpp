@@ -2,8 +2,6 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/PointStamped.h"
-//#include "geometry_msgs/Quaternion.h"
-//#include "geometry_msgs/QuaternionStamped.h"
 #include <ros/console.h>
 #include <iostream>
 #include <string.h>
