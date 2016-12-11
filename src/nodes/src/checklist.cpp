@@ -27,11 +27,16 @@ class Checklist
 {
   private:
     ros::Subscriber task_sub;
+    ros::Publisher check_pub;
     std::string task_temp;
-    //std::string path_to_sounds;
 
     void _taskFunc(const std_msgs::String::ConstPtr& task_msg) {
       task_temp = task_msg->data;
+      if(task_temp == "Checklist") {
+        _stepOne(check_pub);
+        _stepTwo(check_pub);
+        _stepThree(check_pub);
+      }
     }
 
     void _publishStatus (string s, ros::Publisher check_pub) {
@@ -142,25 +147,14 @@ class Checklist
   public:
     Checklist(ros::NodeHandle n) {
       ros::Subscriber task_sub = n.subscribe("task", 100, &Checklist::_taskFunc, this);
-
-      ros::Rate loop_rate(10);
-      ros::Publisher check_pub = n.advertise<std_msgs::String>("checklist_status", 100);
-
-      if(task_temp == "Checklist") {
-        //signal operation start 
-        //sc.playWave(path_to_sounds+"ship_bell.wav");
-        _stepOne(check_pub);
-        _stepTwo(check_pub);
-        _stepThree(check_pub);
-        //step2();
-      }
+      check_pub = n.advertise<std_msgs::String>("checklist_status", 100);
+      ros::spin();
     };
     ~Checklist() {};
 };
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "checklist");
-
   ros::NodeHandle myNodeHandle;
   Checklist myChecklist  (myNodeHandle);
   return 0;

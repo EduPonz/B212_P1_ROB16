@@ -22,18 +22,17 @@ class MoveToPoint {
 
 		void _moveToGoal(float xGoal, float yGoal, float zGoal, float wGoal, ros::Publisher status_pub) { 
 			// Define a client to send goal requests to the move_base server through a SimpleActionClient
-			std::cout << "I am _moveToGoal" << std::endl;
 			actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
 			std_msgs::String move_status_msg;
 	    	std::stringstream action_ss;
     		std::stringstream status_ss;
 
-			// Wait for the action server to come up
-			action_ss << "Waiting for the move_base action server to come up";
-			move_status_msg.data = action_ss.str();
-			status_pub.publish(move_status_msg);
-			ros::spinOnce();
-			//usleep(3*pow(10, 6));
+    		while(!ac.waitForServer(ros::Duration(5.0))) {
+				action_ss << "Waiting for the move_base action server to come up";
+				move_status_msg.data = action_ss.str();
+				status_pub.publish(move_status_msg);
+				ros::spinOnce();
+			}
 
 			// Declaring varible 'goal' as type move_bas_msgs::MoveBaseGoal
 			move_base_msgs::MoveBaseGoal goal;
@@ -52,19 +51,18 @@ class MoveToPoint {
 			goal.target_pose.pose.orientation.w = wGoal;
 
 			ac.sendGoal(goal);
-			// ac.waitForResult();
+			ac.waitForResult();
 
-			// // If else statement for whether or not the robot succeeded in motion operation.
-			// if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-   //    			status_ss << "The robot reached the destination";
-   //    			move_status_msg.data = status_ss.str(); 
-			// }else {
-		 //  		status_ss << "The robot failed to reach the destination";
- 		// 	    move_status_msg.data = status_ss.str();
-			// }
-			// status_pub.publish(move_status_msg);
-			// ros::spinOnce();
-			std::cout << "Done with moving" << std::endl;
+			// If else statement for whether or not the robot succeeded in motion operation.
+			if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+      			status_ss << "The robot reached the destination";
+      			move_status_msg.data = status_ss.str(); 
+			}else {
+		  		status_ss << "The robot failed to reach the destination";
+ 			    move_status_msg.data = status_ss.str();
+			}
+			status_pub.publish(move_status_msg);
+			ros::spinOnce();
 		}
 
 		void _coordToQuat(const geometry_msgs::Point::ConstPtr& msg){
