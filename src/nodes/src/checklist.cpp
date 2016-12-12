@@ -63,7 +63,7 @@ class Checklist
       goal.target_pose.header.frame_id = "base_link";
       goal.target_pose.header.stamp = ros::Time::now();
 
-      goal.target_pose.pose.position.x = 0.0;
+      goal.target_pose.pose.position.x = 2.0;
       goal.target_pose.pose.position.y = 0.0;
       goal.target_pose.pose.position.z = 0.0;
 
@@ -100,14 +100,14 @@ class Checklist
       goal.target_pose.header.frame_id = "base_link";
       goal.target_pose.header.stamp = ros::Time::now();
 
-      goal.target_pose.pose.position.x = 1.0;
+      goal.target_pose.pose.position.x = 0.0;
       goal.target_pose.pose.position.y = 0.0;
       goal.target_pose.pose.position.z = 0.0;
 
       goal.target_pose.pose.orientation.x = 0.0;
       goal.target_pose.pose.orientation.y = 0.0;
       goal.target_pose.pose.orientation.z = 0.0;
-      goal.target_pose.pose.orientation.w = 1.0;
+      goal.target_pose.pose.orientation.w = -1.0;
 
       s = "Sending checklist goal";
       _publishStatus(s, check_pub);

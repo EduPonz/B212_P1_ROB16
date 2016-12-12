@@ -26,13 +26,17 @@ class Interface {
     float z_cor;
     float w_cor;
     // receiving coordinates
-    float receivingx = -4.43;
-    float receivingy = -1.1;
-    float receivingd = 45;
+    float receivingx = -4.61;
+    float receivingy = -0.0485;
+    float receivingd = 150;
     // Shipping coordinates
-    float shippingx = 0.621;
-    float shippingy = -1.86;
-    float shippingd = 60;
+    float shippingx = -3.94;
+    float shippingy = 1.25;
+    float shippingd = 150;
+    // Docking station coordinates
+    float dockingx = -0.146;
+    float dockingy = 0.247;
+    float dockingd = 60;
 
     int robot_choice = 0;
 
@@ -73,10 +77,6 @@ class Interface {
              << "   Coca-Cola---> 6" << endl
              << "   Fanta-------> 7" << endl
              << "   Sprite------> 8" << endl
-             << "   Squash------> 9" << endl
-             << "   Cocio-------> 10" << endl
-             << "   Red Bull----> 11" << endl
-             << "   Nestea------> 12" << endl
              << " Your choice: ";
         cin >> databaseOption;
     }
@@ -98,8 +98,9 @@ class Interface {
         cout << endl << " Where do you want the robot to go?" << endl
              << "  Press 1 for Receiving" " (" << receivingx  << ", " << receivingy << ", " << receivingd << ")" << endl
              << "  Press 2 for Shipping" " ("  << shippingx   << ", " << shippingy  << ", " << shippingd << ")" << endl
-             << "  Press 3 for Database"      << endl
-             << "  Press 4 for Dynamic Point" << endl << " Your choice: ";
+             << "  Press 3 for Docking" " ("  << dockingx   << ", " << dockingy << ", " << dockingd << ")" << endl
+             << "  Press 4 for Database"      << endl
+             << "  Press 5 for Dynamic Point" << endl << " Your choice: ";
         geometry_msgs::Point point_msg;
         cin >> choice;        
 
@@ -111,11 +112,14 @@ class Interface {
                 _publishPoint (shippingx, shippingy, shippingd, coord_pub);
                 break;
               case 3:
+                _publishPoint (dockingx, dockingy, dockingd, coord_pub);
+                break;
+              case 4:
                 int databaseOption;
                 _databaseInterface (databaseOption);
                 _orderProcessing (databaseOption, coord_pub);
                 break;
-              case 4:
+              case 5:
                 // Making a subscription to the rviz coordinate topic "clicked point"
                 click_sub = n.subscribe("clicked_point", 100, &Interface::_rvizClick, this);                   
               
