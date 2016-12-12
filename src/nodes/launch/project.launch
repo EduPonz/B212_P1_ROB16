@@ -18,12 +18,12 @@
 	respawn = "true"
 	/>
 
-  <node 
-  pkg = "nodes" 
-  type = "cheklist"
-  name = "cheklist"
-  respawn = "true"
-  />
+	 <node 
+	 pkg = "nodes" 
+	 type = "cheklist"
+	 name = "cheklist"
+	 respawn = "true"
+	 />
 
 	<node 
 	pkg = "nodes" 
