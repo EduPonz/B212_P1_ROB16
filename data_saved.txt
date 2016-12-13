@@ -1,0 +1,126 @@
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-1.29) (-0.956) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-1.29) (-0.956) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-1.29) (-0.956) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-2.47) (0.291) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-2.76) (-0.249) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-2.13) (0.12) (330) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-1.29) (-0.956) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-2.76) (-0.249) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-1.29) (-0.956) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-3.94) (1.25) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-2.47) (0.291) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-2.13) (0.12) (330) 
+The robot failed to reach the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-0.912) (-0.242) (150) 
+The robot reached the destination
+ The 'Move' operation has been received! 
+The operation has been received for the coordinates: (-4.61) (-0.0485) (150) 
+The robot reached the destination
