@@ -28,7 +28,7 @@ class MoveToPoint {
     		std::stringstream status_ss;
 
     		while(!ac.waitForServer(ros::Duration(5.0))) {
-				action_ss << "Waiting for the move_base action server to come up";
+				action_ss << "Waiting for the move_base action server to come up" << endl;
 				move_status_msg.data = action_ss.str();
 				status_pub.publish(move_status_msg);
 				ros::spinOnce();
@@ -55,10 +55,10 @@ class MoveToPoint {
 
 			// If else statement for whether or not the robot succeeded in motion operation.
 			if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-      			status_ss << "The robot reached the destination";
+      			status_ss << "The robot reached the destination" << endl;
       			move_status_msg.data = status_ss.str(); 
 			}else {
-		  		status_ss << "The robot failed to reach the destination";
+		  		status_ss << "The robot failed to reach the destination" << endl;
  			    move_status_msg.data = status_ss.str();
 			}
 			status_pub.publish(move_status_msg);
@@ -66,7 +66,6 @@ class MoveToPoint {
 		}
 
 		void _coordToQuat(const geometry_msgs::Point::ConstPtr& msg){
-			cout << endl << "I am here" << endl;
 	        thetaRad = (msg->z / 180) * M_PI;
 	        xGoal = msg->x;
 	        yGoal = msg->y;

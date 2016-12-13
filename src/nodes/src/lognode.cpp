@@ -39,13 +39,12 @@ class LogNode{
       //This function prints the text "The 'the task' operation has been received!" 
       //to a txt.file
       void _saveTaskFunc(string x, ofstream &myfile) {
-        myfile << " The '" << x << "' operation has been received! " << endl;
+        myfile << "The '" << x << "' operation has been received! " << endl;
       }
 
       //This function receives the "task" text from the interface and calls on the "_saveTaskFunc"
       //while printing the "task" text in a ros terminal
       void _taskFunc(const std_msgs::String::ConstPtr& task_msg) {
-        cout << endl;
         cout << " The '" << task_msg->data.c_str() <<"' operation has been received!" << endl;
         message = task_msg->data.c_str();
         _saveTaskFunc(message, myfile);
@@ -92,9 +91,7 @@ class LogNode{
       LogNode(ros::NodeHandle n){
         ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &LogNode::_pointFunc, this);
         ros::Subscriber task_sub = n.subscribe("task", 100, &LogNode::_taskFunc, this);
-        ros::Subscriber status_sub = n.subscribe("fork_status", 100, &LogNode::_statusFunc, this);
         ros::Subscriber move_status = n.subscribe("success_fail", 100, &LogNode::_statusFunc, this);
-        ros::Subscriber check_pub = n.subscribe("check_status", 100, &LogNode::_statusFunc, this);
         ros::Subscriber checklist_status_pub = n.subscribe("checklist_status", 100, &LogNode::_statusFunc, this);
         ros::spin();
       };
