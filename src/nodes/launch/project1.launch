@@ -1,0 +1,41 @@
+<launch>
+	
+
+	<!-- our nodes --> 
+	<node 
+	pkg = "nodes" 
+	type = "interface"
+	name = "interface"
+	required = "true"
+	launch-prefix = "xterm -e"
+	/>
+
+	
+	<node 
+	pkg = "nodes" 
+	type = "move_to_point"
+	name = "move_to_point"
+	respawn = "true"
+	/>
+
+	 <node 
+	 pkg = "nodes" 
+	 type = "checklist"
+	 name = "checklist"
+	 respawn = "true"
+	 />
+
+	<node 
+	pkg = "nodes" 
+	type = "lognode"
+	name = "lognode"
+	launch-prefix = "xterm -e"
+	/>
+
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch">
+
+  <param name="/use_dijkstra" type="bool" value="false"/>
+
+  <include file="$(find turtlebot_navigation)/launch/amcl_demo.launch">
+
+</launch>
