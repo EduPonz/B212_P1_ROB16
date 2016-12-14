@@ -36,7 +36,7 @@ class LogNode{
         return s;
       }
 
-      //This function prints the text "The 'the task' operation has been received!" 
+      //This function writes the text "The 'the task' operation has been received!" 
       //to a .txt file
       void _saveTaskFunc(string x, ofstream &myfile) {
         myfile << "The '" << x << "' operation has been received! " << endl;
@@ -50,7 +50,7 @@ class LogNode{
         _saveTaskFunc(message, myfile);
       }
 
-      //This function prints the "status" text 
+      //This function writes the "status" text 
       //to a .txt file
       void _saveStatusFunc(string x, ofstream &myfile){
         myfile << x << endl;
@@ -65,7 +65,7 @@ class LogNode{
         _saveStatusFunc(message, myfile);
       }
 
-      //This function prints the text "The operation has been received 
+      //This function writes the text "The operation has been received 
       //for the coordinates" and the chosen coordinates to a .txt file
       void _savepointFunc(float x, float y, float z, ofstream &myfile){
         myfile << "The operation has been received for the coordinates: ("
