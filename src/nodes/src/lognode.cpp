@@ -21,7 +21,7 @@ ofstream myfile ("data_saved.txt");
 
 class LogNode{
     private: 
-      // Declaring Global variables
+      // Declaring private variables
       float pointx;
       float pointy;
       float pointz;
@@ -37,13 +37,13 @@ class LogNode{
       }
 
       //This function prints the text "The 'the task' operation has been received!" 
-      //to a txt.file
+      //to a .txt file
       void _saveTaskFunc(string x, ofstream &myfile) {
         myfile << "The '" << x << "' operation has been received! " << endl;
       }
 
-      //This function receives the "task" text from the interface and calls on the "_saveTaskFunc"
-      //while printing the "task" text in a ros terminal
+      //This function receives the "task" text from the interface and calls on the "_saveTaskFunc" function
+      //while printing the "task" text to the screen
       void _taskFunc(const std_msgs::String::ConstPtr& task_msg) {
         cout << " The '" << task_msg->data.c_str() <<"' operation has been received!" << endl;
         message = task_msg->data.c_str();
@@ -51,13 +51,13 @@ class LogNode{
       }
 
       //This function prints the "status" text 
-      //to a txt.file
+      //to a .txt file
       void _saveStatusFunc(string x, ofstream &myfile){
         myfile << x << endl;
       }
 
-      //This function receives the status from the interface and calls on the "_saveStatusFunc"
-      //while printing the "status" text in a ros terminal
+      //This function receives the status from the interface and calls on the "_saveStatusFunc" function
+      //while printing the "status" text to the screen
       void _statusFunc(const std_msgs::String::ConstPtr& status_msg){
         cout << endl;
         cout << " " << status_msg->data.c_str() << endl;
@@ -66,16 +66,16 @@ class LogNode{
       }
 
       //This function prints the text "The operation has been received 
-      //for the coordinates" and the chosen coordinates to a txt.file
+      //for the coordinates" and the chosen coordinates to a .txt file
       void _savepointFunc(float x, float y, float z, ofstream &myfile){
         myfile << "The operation has been received for the coordinates: ("
                << _floatToString(x) << ") (" << _floatToString(y)
                << ") (" << _floatToString(z) << ") " << endl;     
       }
 
-      //This function receives the coordinates from the interface and calls on the "_savepointFunc"
+      //This function receives the coordinates from the interface and calls on the "_savepointFunc" function
       //while printing "The operation has been received for the coordinates: " and the coordinates 
-      //in a ros terminal
+      //to the screen
       void _pointFunc(const geometry_msgs::Point::ConstPtr& point_msg){
         cout << " The operation has been received for the coordinates: " << endl << " ("
              << point_msg->x << ", " 
@@ -87,7 +87,7 @@ class LogNode{
         _savepointFunc(pointx, pointy, pointz, myfile);
       }
     public:
-
+      //LogNode class construction
       LogNode(ros::NodeHandle n){
         ros::Subscriber click_sub = n.subscribe("point_coordinates", 100, &LogNode::_pointFunc, this);
         ros::Subscriber task_sub = n.subscribe("task", 100, &LogNode::_taskFunc, this);
