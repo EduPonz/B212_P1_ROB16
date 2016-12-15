@@ -67,7 +67,7 @@ class LogNode{
 
       //This function writes the text "The operation has been received 
       //for the coordinates" and the chosen coordinates to a .txt file
-      void _savepointFunc(float x, float y, float z, ofstream &myfile){
+      void _savePointFunc(float x, float y, float z, ofstream &myfile){
         myfile << "The operation has been received for the coordinates: ("
                << _floatToString(x) << ") (" << _floatToString(y)
                << ") (" << _floatToString(z) << ") " << endl;     
@@ -84,7 +84,7 @@ class LogNode{
         pointx = point_msg->x; 
         pointy = point_msg->y;
         pointz = point_msg->z;
-        _savepointFunc(pointx, pointy, pointz, myfile);
+        _savePointFunc(pointx, pointy, pointz, myfile);
       }
     public:
       //LogNode class construction
