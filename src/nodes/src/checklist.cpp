@@ -15,9 +15,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sstream>
-#include <fstream>  //for opening, reading and writing
+#include <fstream>
 #include <math.h>
-//#include "sound_play/sound_play.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -51,7 +50,6 @@ class Checklist
     }
     // Step one of the checklist operation
     void _stepOne(ros::Publisher check_pub) {
-
       MoveBaseClient ac("move_base", true);
       string s;
 
@@ -83,14 +81,14 @@ class Checklist
       if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
         s = "Step 1 has been completed. Arrived to origin.";
         _publishStatus(s, check_pub);
-      }else { // Publishing the failure status of the operation
+      }else {
+        // Publishing the failure status of the operation
         s = "Step 1 failed";
         _publishStatus(s, check_pub);
       }
     }
     // Same function as before but using different coordinates
     void _stepTwo(ros::Publisher check_pub) {
-
       MoveBaseClient ac("move_base", true);
       string s;
 
@@ -115,7 +113,6 @@ class Checklist
       s = "Sending checklist goal";
       _publishStatus(s, check_pub);
       ac.sendGoal(goal);
-
       ac.waitForResult();
 
       if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
@@ -128,7 +125,6 @@ class Checklist
     }
     // Same function as before but using different coordinates
     void _stepThree(ros::Publisher check_pub) {
-
       MoveBaseClient ac("move_base", true);
       string s;
 
@@ -153,7 +149,6 @@ class Checklist
       s = "Sending checklist goal";
       _publishStatus(s, check_pub);
       ac.sendGoal(goal);
-
       ac.waitForResult();
 
       if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
