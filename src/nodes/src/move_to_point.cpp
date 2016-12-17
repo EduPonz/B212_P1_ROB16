@@ -33,14 +33,11 @@ class MoveToPoint {
 				status_pub.publish(move_status_msg);
 				ros::spinOnce();
 			}
-
 			// Declaring varible 'goal' as type move_bas_msgs::MoveBaseGoal
 			move_base_msgs::MoveBaseGoal goal;
-
 			// Set up the frame parameters
 			goal.target_pose.header.frame_id = "map";
 			goal.target_pose.header.stamp = ros::Time::now();
-
 			// Moving towards the goal
 			goal.target_pose.pose.position.x =  xGoal;
 			goal.target_pose.pose.position.y =  yGoal;
@@ -52,27 +49,26 @@ class MoveToPoint {
 
 			ac.sendGoal(goal);
 			ac.waitForResult();
-
 			// If else statement for whether or not the robot succeeded in motion operation.
 			if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
       			status_ss << "The robot reached the destination" << endl;
       			move_status_msg.data = status_ss.str(); 
 			}else {
 		  		status_ss << "The robot failed to reach the destination" << endl;
- 			    move_status_msg.data = status_ss.str();
+ 			    	move_status_msg.data = status_ss.str();
 			}
 			status_pub.publish(move_status_msg);
 			ros::spinOnce();
 		}
 
 		void _coordToQuat(const geometry_msgs::Point::ConstPtr& msg){
-	        thetaRad = (msg->z / 180) * M_PI;
-	        xGoal = msg->x;
-	        yGoal = msg->y;
-	        zGoal = sin(thetaRad / 2);
-	        wGoal = cos(thetaRad / 2);
-	        cout << "I am going to: (" << xGoal << ", " << yGoal << ", " << zGoal << ", " << wGoal << ")" << endl;
-			_moveToGoal(xGoal, yGoal, zGoal, wGoal, status_pub);
+	     		thetaRad = (msg->z / 180) * M_PI;
+	        	xGoal = msg->x;
+	        	yGoal = msg->y;
+	        	zGoal = sin(thetaRad / 2);
+	        	wGoal = cos(thetaRad / 2);
+	        	cout << "I am going to: (" << xGoal << ", " << yGoal << ", " << zGoal << ", " << wGoal << ")" << endl;
+				_moveToGoal(xGoal, yGoal, zGoal, wGoal, status_pub);
     }
 
 	public:
