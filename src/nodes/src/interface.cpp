@@ -25,7 +25,7 @@ class Interface {
     float y_cor;
     float z_cor;
     float w_cor;
-    // receiving coordinates
+    // Receiving coordinates
     float receivingx = -4.61;
     float receivingy = -0.0485;
     float receivingd = 150;
@@ -39,8 +39,7 @@ class Interface {
     float dockingd = 60;
 
     int robot_choice = 0;
-
-    //Robot choosing function #sodynamic
+    // Robot choosing function #sodynamic
     void _chooseRobot(int &robot_choice) {
       srand(time(NULL));
       int i = rand()%9+1;
@@ -57,7 +56,6 @@ class Interface {
                 task = "Move";
                 break;
         }
-
         std_msgs::String task_msg;
         // Sending task to lognode
         task_msg.data = task;
@@ -86,14 +84,12 @@ class Interface {
         point_msg.x = x;
         point_msg.y = y;
         point_msg.z = z;
-        //quaternion_msg.w = w;
         coordPublisher.publish(point_msg); 
         ros::spinOnce();
     }
 
     void _moveInterface (ros::Publisher coord_pub, ros::NodeHandle n) {
         int choice = 0;
-        //dynamic stuff lata
 
         cout << endl << " Where do you want the robot to go?" << endl
              << "  Press 1 for Receiving" " (" << receivingx  << ", " << receivingy << ", " << receivingd << ")" << endl
@@ -121,8 +117,7 @@ class Interface {
                 break;
               case 5:
                 // Making a subscription to the rviz coordinate topic "clicked point"
-                click_sub = n.subscribe("clicked_point", 100, &Interface::_rvizClick, this);                   
-              
+                click_sub = n.subscribe("clicked_point", 100, &Interface::_rvizClick, this);                             
                 // Will continue to initialize the callback function until a set of coordinates
                 // has been published from rviz. i.e. the value of x coordinate changes.
                 while( (x_cor == 0) && (y_cor == 0)) {
@@ -134,14 +129,12 @@ class Interface {
                 coord_pub.publish(point_msg); 
                 ros::spinOnce();
                 break;
-
               default:
                 cout << " Sorry, I didn't understand that. Please insert a new location command:" << endl;
                 cin >> choice;
                 break;
           } 
-            // Publishing coordinates to topic
-            
+            // Publishing coordinates to topic            
             x_cor = 0;
             y_cor = 0;
     }
@@ -181,7 +174,6 @@ class Interface {
     }
 
     void _readFunc(float &xval, float &yval, float &zval, int lineNumb) {
-
         ifstream file("data.txt");
         string line;
         for (int i = 1; i < lineNumb; i++){
@@ -257,10 +249,8 @@ class Interface {
         cout << Art << std::endl;              
         Reader.close ();
     }
-
     // Callback equation for getting rViz coordinates 
     void _rvizClick(const geometry_msgs::PointStamped::ConstPtr& msg) {
-  
       x_cor = msg->point.x;
       y_cor = msg->point.y;
       z_cor = msg->point.z;
@@ -270,7 +260,6 @@ class Interface {
   public:
     // Class constructor
     Interface(ros::NodeHandle n) {
-
       // Making publisher coord_pub to advertise the coordinates to topic "coordinates" for lognode and the goto node
         ros::Publisher coordPublisher = n.advertise<geometry_msgs::Point>("point_coordinates", 1000);
         ros::Publisher taskPublisher = n.advertise<std_msgs::String>("task", 1000);
@@ -282,7 +271,6 @@ class Interface {
 };
 
 int main(int argc, char **argv) {
-
   ros::init(argc, argv, "interface");
   ros::NodeHandle myNodeHandle;
   Interface myInterface (myNodeHandle);
